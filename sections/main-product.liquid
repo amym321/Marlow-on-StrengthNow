@@ -66,7 +66,7 @@
         endif
       -%}
 
-      {% form 'product', product, class: form_class, data-ajax-add-to-cart: enable_ajax, data-product-id: product.id, data-enable-history-state: true, data-open-cart-drawer: open_cart_drawer, data-smartrr-form-id:product.id %}
+      {% form 'product', product, class: form_class, data-ajax-add-to-cart: enable_ajax, data-product-id: product.id, data-enable-history-state: true, data-open-cart-drawer: open_cart_drawer %}
         <!-- begin product form and details -->
         <div class="product-details" data-cc-animate data-cc-animate-delay="0.5s">
           {%- liquid
@@ -139,25 +139,16 @@
               {% endif %}
 
             {%- when 'price' -%}
-            <!-- code changed - am. removed original price code. smartrr does all pricing -->
-              <!-- <div id="price"
+              <div id="price"
                    class="product-price product-detail__gap-sm {% if current_variant.compare_at_price > current_variant.price %}on-sale{% endif %}" {{ block.shopify_attributes }}>
                 <span class="current-price theme-money">{% render 'price', price: current_variant.price %}</span>
-                 if current_variant.compare_at_price > current_variant.price 
-                  <span class="was-price theme-money">
-                     render 'price', price: current_variant.compare_at_price 
-                  </span>
-                 endif 
+                {% if current_variant.compare_at_price > current_variant.price %}
+                  <span class="was-price theme-money">{% render 'price', price: current_variant.compare_at_price %}</span>
+                {% endif %}
 
-                 render 'unit-price', variant: current_variant 
-              </div> -->
+                {% render 'unit-price', variant: current_variant %}
+              </div>
 
-          <div class="data-smartrr-top-price" data-smartrr-product-id="{{ product.id }}"
-               data-smartrr-price-style="original-compare"  class="data-smartrr-top-price">
-            <span data-smartrr-subscribe-price></span>
-            <span data-smartrr-compare-price></span>
-            <span data-smartrr-regular-price></span>
-          </div>
               {{ form | payment_terms }}
 
               {%- if block.settings.show_tax_and_shipping -%}
@@ -212,78 +203,99 @@
               {% endif %}
 
             {%- when 'variant_picker' -%}
-            <!--   added dropdown based on radio buttons - am -->
-              {% for option in product.options_with_values %}
-                {% if option.name != blank and  option.name != "Title" %}
-                  <div>{{ option.name }}</div>
-                {% endif %}
-              {% endfor  %}
-              <div dropdown-multi-variants class="variant-select">
-                <div class="dropdown-options dropdown-field">
-                  <div onclick="dropdownMenu()" class="drop-button">
-                    <div class="dropdown-options">
-                      <svg id="dropdownSvgDown" height="25" viewBox="0 0 20 20" width="25" xmlns="http://www.w3.org/2000/svg"><path d="M7.41 7.84L12 12.42l4.59-4.58L18 9.25l-6 6-6-6z"></path><path d="M0-.75h24v24H0z" fill="none"></path></svg>
-                    </div>
-                    <!-- main buttons created for each variant in dropdown list- am -->
-                    {% if product.handle == 'marlow-tampons' or product.handle == 'bundle-save' or product.handle == 'marlow-gift-card-1' %}
-                      <div data-smartrr-label-sub    data-variant-id="{{variant.id}}">
-                        {% for variant in product.variants %}
-                          {% if variant.title contains "Subscription" %}
-                            <div  data-button-label-id="{{ variant.id }}"  data-smartrr-button-label
-                              class="dropbtn {% if variant.id == product.selected_or_first_available_variant.id %}show-button{% else%}hide-button{% endif %}">
-                              {{ variant.title }}
+              {% if product.variants.size > 1 %}
+                <div class="option-selectors product-detail__gap-lg"
+                     data-box-options="{{ block.settings.prod_clicky_opt_names | escape }}" {{ block.shopify_attributes }}>
+                  {% for option in product.options_with_values %}
+                    <div class="selector-wrapper cf">
+                      {% if block.settings.show_size_chart and option.name == block.settings.size_chart_variant and block.settings.size_chart_page != blank %}
+                        <div class="opposing-items">
+                          <label class="left" for="option-{{ option.name | handle }}">{{ option.name }}</label>
+                          <span class="size-chart-container">
+                            <a href="#size-chart-content" class="size-chart-link">
+                              {{ 'products.product.size_chart' | t }}
+                              {% render 'svg-chevron-right' %}
+                            </a>
+                            <div id="size-chart-content" class="hidden">
+                              <div class="size-chart">
+                                <div class="size-chart__inner rte">
+                                  {{ pages[block.settings.size_chart_page].content }}
+                                </div>
+                              </div>
                             </div>
-                          {% endif %}
-                        {% endfor %} 
-                      </div>
-                      <div data-smartrr-label-otp>
-                        {% for variant in product.variants %}
-                          {% unless variant.title contains "Subscription" %}
-                            <div  data-button-label-id="{{ variant.id }}"  data-smartrr-button-label
-                              class="dropbtn {% if variant.id == product.selected_or_first_available_variant.id %}show-button{% else%}hide-button{% endif %}">
-                              {{ variant.title }}
-                            </div>
-                          {% endunless %} 
-                        {% endfor %}
-                      </div>
-                    {% endif %}
-
-                    <div id="dropdownSelections"  class="dropdown-content ">
-                      <!-- smartrr code -->
-                      <div data-smartrr-choose-sub class = 'dropdown-select'>
-                        {% for variant in product.variants %}
-                        {% if variant.title contains "Subscription" %}
-                        <label class="input">
-                          <input type="radio" data-smartrr-variant-input='sub' value="{{ variant.id }}" name="id" 
-                            {% if variant.id == product.selected_or_first_available_variant.id %}checked="checked"{% endif %}>
-                          <div data-smartrr-variant-id="{{ variant.id }}">{{ variant.title }}</div>
-                        </label>
-                        {% endif %}
-                        {% endfor %}
-                      </div>
-                      <div data-smartrr-choose-otp class = 'dropdown-select'>
-                        {% for variant in product.variants %}
-                        {% unless variant.title contains "Subscription" %}
-                        <label class="input">
-                          <input type="radio" data-smartrr-variant-input='otp' value="{{ variant.id }}" name="id" 
-                            {% if variant.id == product.selected_or_first_available_variant.id %}checked="checked"{% endif %}>
-                          <div data-smartrr-variant-id="{{ variant.id }}">{{ variant.title }}</div>
-                        </label>
-                        {% endunless %}
-                        {% endfor %}
-                      </div>
-
-                      {% if product.variants.size == 1 %}
-                      <style>
-                        [data-smartrr-choose-sub], [data-smartrr-choose-otp], [dropdown-multi-variants] {
-                          display: none;
-                        }
-                      </style>
+                          </span>
+                        </div>
+                      {% else %}
+                        <label {% if option.name == 'default' %}class="hidden"{% endif %}
+                               for="option-{{ option.name | handle }}">{{ option.name }}</label>
                       {% endif %}
+
+                      <select id="option-{{ option.name | handle }}">
+                        {% for value in option.values %}
+                          <option value="{{ value | escape }}" {% if option.selected_value == value %}selected{% endif %}>
+                            {{ value }}
+                          </option>
+                        {% endfor %}
+                      </select>
                     </div>
-                  </div>
+                  {% endfor %}
                 </div>
-              </div>
+
+              {% else %}
+                {% unless show_single_variant_details == false or product.has_only_default_variant %}
+                  {%- assign opt_idx = '' -%}
+                  {%- capture option_list -%}
+                    {%- for option in product.options -%}
+                      {%- if option != 'Title' -%}
+                        {%- assign opt_idx = 'option' | append: forloop.index -%}
+                        <div class="product-detail__gap-xsm">
+                          {% if block.settings.show_size_chart and option == block.settings.size_chart_variant and block.settings.size_chart_page != blank %}
+                            <div class="opposing-items">
+                              <label class="left" for="option-{{ option | handle }}">{{ option }}</label>
+                              <span class="size-chart-container">
+                                <a href="#size-chart-content" class="size-chart-link">
+                                  {{ 'products.product.size_chart' | t }}
+                                  {% render 'svg-chevron-right' %}
+                                </a>
+                                <div id="size-chart-content" class="hidden">
+                                  <div class="size-chart">
+                                    <div class="size-chart__inner rte">
+                                      {{ pages[block.settings.size_chart_page].content }}
+                                    </div>
+                                  </div>
+                                </div>
+                              </span>
+                            </div>
+                            <div>{{ product.variants.first[opt_idx] }}</div>
+                          {% else %}
+                            <label>{{ option }}:</label> {{ product.variants.first[opt_idx] }}
+                          {% endif %}
+                        </div>
+                      {%- endif -%}
+                    {%- endfor -%}
+                  {%- endcapture -%}
+                  {%- if opt_idx != blank -%}
+                    <div class="selector-wrapper single-option" {{ block.shopify_attributes }}>{{ option_list }}</div>
+                  {%- endif -%}
+                {% endunless %}
+              {% endif %}
+
+              <select name="id" class="original-selector{% if product.variants.size == 1 %} hidden{% endif %}"
+                      aria-label="{{ 'products.product.selector_label' | t | escape }}">
+                {% for variant in product.variants %}
+                  <option value="{{ variant.id }}"
+                          {% if variant == current_variant %} selected="selected"{% endif %}
+                          data-stock="{% if variant.inventory_management == 'shopify' and variant.inventory_quantity <= 0 %}out{% endif %}"
+                          {% if variant.inventory_management == 'shopify' and variant.inventory_quantity > 0 %}
+                            {% if variant.inventory_quantity <= block.settings.stock_warning_limit or block.settings.stock_warning_limit == 0 %}
+                              data-inventory="{{ variant.inventory_quantity }}"
+                            {% endif %}
+                          {% endif %}
+                    {% if variant.weight != blank and variant.weight > 0 %}data-weight="{{ variant.weight | weight_with_unit: variant.weight_unit }}"{% endif %}>
+                    {{- variant.title | escape -}}
+                  </option>
+                {% endfor %}
+              </select>
 
               {% if product.available and block.settings.stock_warning_show %}
                 {%- if current_variant.inventory_management == 'shopify' and current_variant.inventory_quantity > 0 -%}
@@ -299,48 +311,12 @@
                 {%- endif -%}
               {% endif %}
 
-            <!-- code added - am. Benefits text depending on One-Time Purchase or Subscription checked -->
-            {% for tag in product.tags %}
-              {% if tag == 'benefits' %}
-                {% assign has_benefits = true %}
-              {% endif %}
-            {% endfor %}
-
-            {% render 'smartrr-product' %}
-
-            {% if has_benefits %}
-              <div data-smartrr-choose-otp-benefit class="hide">
-                <div data-smartrr-onetime-benefits>
-                  {% if product == all_products["bundle-save"] %}
-                  <div>1 box of tampons, 1 bottle of lubricant</div>
-                  {% endif %}
-                  {% if product == all_products["marlow-tampons"] %}
-                  <div>1 box of tampons</div>
-                  {% endif %}
-                  <div data-smartrr-benefits-onetime>Auto-refill deliveries</div>
-                  <div data-smartrr-benefits-onetime>Free Shipping</div>
-                </div>
-              </div>
-              <div data-smartrr-choose-sub-benefit class="hide">
-                <div data-smartrr-subscription-benefits>
-                  {% if product == all_products["bundle-save"] %}
-                  <div>3 boxes of tampons, 3 bottles of lubricant</div>
-                  {% endif %}
-                  {% if product == all_products["marlow-tampons"] %}
-                  <div>3 boxes of tampons</div>
-                  {% endif %}
-                  <div data-smartrr-benefits-all data-smartrr-benefits-duration></div>
-                  <div data-smartrr-benefits-all>Skip or cancel anytime</div>
-                  <div data-smartrr-benefits-all>Free Shipping</div>
-                </div>
-              </div>
-              {% assign has_benefits = false %}
-            {% endif %}
-
             {%- when 'buy_buttons' -%}
               {% if product.available %}
                 {% if is_variant_picker == false %}
-                  <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}">
+                  <select name="id" style="display:none;">
+                    <option value="{{ product.selected_or_first_available_variant.id }}"></option>
+                  </select>
                 {% endif %}
                 <div class="payment-and-quantity
                         product-detail__gap-lg
@@ -502,6 +478,7 @@
             <span class="current-price theme-money">{% render 'price', price: 2999 %}</span>
             <span class="was-price theme-money">{% render 'price', price: 1999 %}</span>
           </div>
+
           <div class="payment-and-quantity product-detail__gap-lg payment-and-quantity--buttons-active payment-and-quantity--with-quantity">
             <div class="quantity">
               <div class="qty-adjuster">
@@ -563,9 +540,6 @@
   {% render 'structured-data-product', product: product, current_variant: current_variant %}
 </div>
 
-<!--Start Stamped.io Auto Installation-->
-<div id="stamped-main-widget" class="stamped-main-widget" data-widget-style="standard" data-product-id="{{ product.id }}" data-name="{{ product.title | escape }}" data-url="{{ shop.url }}{{ product.url }}" data-image-url="{{ product.featured_image | product_img_url: "large" |replace: '?', '%3F' | replace: '&','%26'}}" data-description="{{ product.description | escape }}" data-product-sku="{{product.handle}}" data-product-type="{{product.type}}" data-widget-language="{{shop.locale}}">{{ product.metafields.stamped.reviews }}</div>
-<!--End Stamped.io Auto Installation-->
 
 {% schema %}
   {

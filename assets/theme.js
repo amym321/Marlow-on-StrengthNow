@@ -1,4 +1,4 @@
-function _get(target, property, receiver) {if (typeof Reflect !== "undefined" && Reflect.get) {_get = Reflect.get;} else {_get = function _get(target, property, receiver) {var base = _superPropBase(target, property);if (!base) return;var desc = Object.getOwnPropertyDescriptor(base, property);if (desc.get) {return desc.get.call(receiver);}return desc.value;};}return _get(target, property, receiver || target);}function _superPropBase(object, property) {while (!Object.prototype.hasOwnProperty.call(object, property)) {object = _getPrototypeOf(object);if (object === null) break;}return object;}function _inherits(subClass, superClass) {if (typeof superClass !== "function" && superClass !== null) {throw new TypeError("Super expression must either be null or a function");}subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } });if (superClass) _setPrototypeOf(subClass, superClass);}function _setPrototypeOf(o, p) {_setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) {o.__proto__ = p;return o;};return _setPrototypeOf(o, p);}function _createSuper(Derived) {var hasNativeReflectConstruct = _isNativeReflectConstruct();return function _createSuperInternal() {var Super = _getPrototypeOf(Derived),result;if (hasNativeReflectConstruct) {var NewTarget = _getPrototypeOf(this).constructor;result = Reflect.construct(Super, arguments, NewTarget);} else {result = Super.apply(this, arguments);}return _possibleConstructorReturn(this, result);};}function _possibleConstructorReturn(self, call) {if (call && (_typeof(call) === "object" || typeof call === "function")) {return call;} else if (call !== void 0) {throw new TypeError("Derived constructors may only return object or undefined");}return _assertThisInitialized(self);}function _assertThisInitialized(self) {if (self === void 0) {throw new ReferenceError("this hasn't been initialised - super() hasn't been called");}return self;}function _isNativeReflectConstruct() {if (typeof Reflect === "undefined" || !Reflect.construct) return false;if (Reflect.construct.sham) return false;if (typeof Proxy === "function") return true;try {Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {}));return true;} catch (e) {return false;}}function _getPrototypeOf(o) {_getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) {return o.__proto__ || Object.getPrototypeOf(o);};return _getPrototypeOf(o);}function _typeof(obj) {"@babel/helpers - typeof";if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") {_typeof = function _typeof(obj) {return typeof obj;};} else {_typeof = function _typeof(obj) {return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj;};}return _typeof(obj);}function _classCallCheck(instance, Constructor) {if (!(instance instanceof Constructor)) {throw new TypeError("Cannot call a class as a function");}}function _defineProperties(target, props) {for (var i = 0; i < props.length; i++) {var descriptor = props[i];descriptor.enumerable = descriptor.enumerable || false;descriptor.configurable = true;if ("value" in descriptor) descriptor.writable = true;Object.defineProperty(target, descriptor.key, descriptor);}}function _createClass(Constructor, protoProps, staticProps) {if (protoProps) _defineProperties(Constructor.prototype, protoProps);if (staticProps) _defineProperties(Constructor, staticProps);return Constructor;}(function ($) {var _this11 = this;
+(function ($) {
   var $ = jQuery = $;
 
   var cc = {
@@ -77,11 +77,11 @@ function _get(target, property, receiver) {if (typeof Reflect !== "undefined" &&
       },
       removeProtocol: function removeProtocol(t) {
         return t.replace(/http(s)?:/, "");
-      } } };var
+      } } };
 
 
-  ccComponent = /*#__PURE__*/function () {"use strict";
-    function ccComponent(name) {var cssSelector = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : ".cc-".concat(name);_classCallCheck(this, ccComponent);
+  class ccComponent {
+    constructor(name) {var cssSelector = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : ".cc-".concat(name);
       var _this = this;
       this.instances = [];
 
@@ -107,34 +107,34 @@ function _get(target, property, receiver) {if (typeof Reflect !== "undefined" &&
       $(cssSelector).each(function () {
         _this.init(this);
       });
-    }_createClass(ccComponent, [{ key: "init", value:
+    }
 
-      function init(container) {
-        $(container).addClass('cc-initialized');
-      } }, { key: "destroy", value:
+    init(container) {
+      $(container).addClass('cc-initialized');
+    }
 
-      function destroy(container) {
-        $(container).removeClass('cc-initialized');
-      } }, { key: "registerInstance", value:
+    destroy(container) {
+      $(container).removeClass('cc-initialized');
+    }
 
-      function registerInstance(container, instance) {
-        this.instances.push({
-          container: container,
-          instance: instance });
+    registerInstance(container, instance) {
+      this.instances.push({
+        container,
+        instance });
 
-      } }, { key: "destroyInstance", value:
+    }
 
-      function destroyInstance(container) {
-        this.instances = this.instances.filter(function (item) {
-          if (item.container === container) {
-            if (typeof item.instance.destroy === 'function') {
-              item.instance.destroy();
-            }
-
-            return item.container !== container;
+    destroyInstance(container) {
+      this.instances = this.instances.filter((item) => {
+        if (item.container === container) {
+          if (typeof item.instance.destroy === 'function') {
+            item.instance.destroy();
           }
-        });
-      } }]);return ccComponent;}();
+
+          return item.container !== container;
+        }
+      });
+    }}
 
   (function () {
     function throttle(callback, threshold) {
@@ -320,7 +320,7 @@ function _get(target, property, receiver) {if (typeof Reflect !== "undefined" &&
         if ($(target).data('components')) {
           //Init each component
           var components = $(target).data('components').split(',');
-          components.forEach(function (component) {
+          components.forEach((component) => {
             $(document).trigger('cc:component:load', [component, target]);
           });
         }
@@ -375,7 +375,7 @@ function _get(target, property, receiver) {if (typeof Reflect !== "undefined" &&
         if ($(target).data('components')) {
           //Init each component
           var components = $(target).data('components').split(',');
-          components.forEach(function (component) {
+          components.forEach((component) => {
             $(document).trigger('cc:component:unload', [component, target]);
           });
         }
@@ -407,14 +407,14 @@ function _get(target, property, receiver) {if (typeof Reflect !== "undefined" &&
     _._registerEventListener = function (element, eventType, callback) {
       element.addEventListener(eventType, callback);
       this.registeredEventListeners.push({
-        element: element,
-        eventType: eventType,
-        callback: callback });
+        element,
+        eventType,
+        callback });
 
     };
 
     _._unloadRegisteredEventListeners = function (registeredEventListeners) {
-      registeredEventListeners.forEach(function (rel) {
+      registeredEventListeners.forEach((rel) => {
         rel.element.removeEventListener(rel.eventType, rel.callback);
       });
     };
@@ -647,7 +647,7 @@ function _get(target, property, receiver) {if (typeof Reflect !== "undefined" &&
       var firstScriptTag = document.getElementsByTagName('script')[0];
       firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
       return true;
-    } else if (_typeof(theme.scriptsLoaded[src]) === 'object' && typeof callback === 'function') {
+    } else if (typeof theme.scriptsLoaded[src] === 'object' && typeof callback === 'function') {
       theme.scriptsLoaded[src].push(callback);
     } else {
       if (typeof callback === 'function') {
@@ -720,7 +720,7 @@ function _get(target, property, receiver) {if (typeof Reflect !== "undefined" &&
   /// v1.0
   /// Restyling select dropdowns
   $.fn.selectReplace = function (prefix) {
-    var chevronDown = '<svg fill="#fff" height="35" viewBox="0 0 20 20" width="35" xmlns="http://www.w3.org/2000/svg"><path d="M7.41 7.84L12 12.42l4.59-4.58L18 9.25l-6 6-6-6z"/><path d="M0-.75h24v24H0z" fill="none"/></svg>';
+    var chevronDown = '<svg fill="#000000" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M7.41 7.84L12 12.42l4.59-4.58L18 9.25l-6 6-6-6z"/><path d="M0-.75h24v24H0z" fill="none"/></svg>';
     if (prefix == 'destroy') {
       $(this).off('.selectreplace');
     } else {
@@ -780,9 +780,9 @@ function _get(target, property, receiver) {if (typeof Reflect !== "undefined" &&
       window.dispatchEvent(scrollEvent);
     }, 200));
 
-  })();var
-  ccPopup = /*#__PURE__*/function () {"use strict";
-    function ccPopup($container, namespace) {_classCallCheck(this, ccPopup);
+  })();
+  class ccPopup {
+    constructor($container, namespace) {
       this.$container = $container;
       this.namespace = namespace;
       this.cssClasses = {
@@ -796,99 +796,99 @@ function _get(target, property, receiver) {if (typeof Reflect !== "undefined" &&
      * Open popup on timer / local storage - move focus to input ensure you can tab to submit and close
      * Add the cc-popup--visible class
      * Update aria to visible
-     */_createClass(ccPopup, [{ key: "open", value:
-      function open(callback) {var _this2 = this;
-        // Prevent the body from scrolling
-        if (this.$container.data('freeze-scroll')) {
-          $('body').addClass(this.cssClasses.bodyNoScroll);
+     */
+    open(callback) {
+      // Prevent the body from scrolling
+      if (this.$container.data('freeze-scroll')) {
+        $('body').addClass(this.cssClasses.bodyNoScroll);
 
-          // Add any padding necessary to the body to compensate for the scrollbar that just disappeared
-          var scrollDiv = document.createElement('div');
-          scrollDiv.className = 'popup-scrollbar-measure';
-          document.body.appendChild(scrollDiv);
-          var scrollbarWidth = scrollDiv.getBoundingClientRect().width - scrollDiv.clientWidth;
-          document.body.removeChild(scrollDiv);
-          if (scrollbarWidth > 0) {
-            $('body').css('padding-right', scrollbarWidth + 'px').addClass(this.cssClasses.bodyNoScrollPadRight);
+        // Add any padding necessary to the body to compensate for the scrollbar that just disappeared
+        var scrollDiv = document.createElement('div');
+        scrollDiv.className = 'popup-scrollbar-measure';
+        document.body.appendChild(scrollDiv);
+        var scrollbarWidth = scrollDiv.getBoundingClientRect().width - scrollDiv.clientWidth;
+        document.body.removeChild(scrollDiv);
+        if (scrollbarWidth > 0) {
+          $('body').css('padding-right', scrollbarWidth + 'px').addClass(this.cssClasses.bodyNoScrollPadRight);
+        }
+      }
+
+      // Add reveal class
+      this.$container.addClass(this.cssClasses.visible);
+
+      // Track previously focused element
+      this.previouslyActiveElement = document.activeElement;
+
+      // Focus on the close button after the animation in has completed
+      setTimeout(() => {
+        this.$container.find('.cc-popup-close')[0].focus();
+      }, 500);
+
+      // Pressing escape closes the modal
+      $(window).on('keydown' + this.namespace, (event) => {
+        if (event.keyCode === 27) {
+          this.close();
+        }
+      });
+
+      if (callback) {
+        callback();
+      }
+    }
+
+    /**
+     * Close popup on click of close button or background - where does the focus go back to?
+     * Remove the cc-popup--visible class
+     */
+    close(callback) {
+      // Remove reveal class
+      this.$container.removeClass(this.cssClasses.visible);
+
+      // Revert focus
+      if (this.previouslyActiveElement) {
+        $(this.previouslyActiveElement).focus();
+      }
+
+      // Destroy the escape event listener
+      $(window).off('keydown' + this.namespace);
+
+      // Allow the body to scroll and remove any scrollbar-compensating padding
+      if (this.$container.data('freeze-scroll')) {
+        var transitionDuration = 500;
+
+        var $innerModal = this.$container.find('.cc-popup-modal');
+        if ($innerModal.length) {
+          transitionDuration = parseFloat(getComputedStyle($innerModal[0])['transitionDuration']);
+          if (transitionDuration && transitionDuration > 0) {
+            transitionDuration *= 1000;
           }
         }
 
-        // Add reveal class
-        this.$container.addClass(this.cssClasses.visible);
+        setTimeout(() => {
+          $('body').removeClass(this.cssClasses.bodyNoScroll).removeClass(this.cssClasses.bodyNoScrollPadRight).css('padding-right', '0');
+        }, transitionDuration);
+      }
 
-        // Track previously focused element
-        this.previouslyActiveElement = document.activeElement;
-
-        // Focus on the close button after the animation in has completed
-        setTimeout(function () {
-          _this2.$container.find('.cc-popup-close')[0].focus();
-        }, 500);
-
-        // Pressing escape closes the modal
-        $(window).on('keydown' + this.namespace, function (event) {
-          if (event.keyCode === 27) {
-            _this2.close();
-          }
-        });
-
-        if (callback) {
-          callback();
-        }
-      } }, { key: "close", value:
-
-      /**
-       * Close popup on click of close button or background - where does the focus go back to?
-       * Remove the cc-popup--visible class
-       */
-      function close(callback) {var _this3 = this;
-        // Remove reveal class
-        this.$container.removeClass(this.cssClasses.visible);
-
-        // Revert focus
-        if (this.previouslyActiveElement) {
-          $(this.previouslyActiveElement).focus();
-        }
-
-        // Destroy the escape event listener
-        $(window).off('keydown' + this.namespace);
-
-        // Allow the body to scroll and remove any scrollbar-compensating padding
-        if (this.$container.data('freeze-scroll')) {
-          var transitionDuration = 500;
-
-          var $innerModal = this.$container.find('.cc-popup-modal');
-          if ($innerModal.length) {
-            transitionDuration = parseFloat(getComputedStyle($innerModal[0])['transitionDuration']);
-            if (transitionDuration && transitionDuration > 0) {
-              transitionDuration *= 1000;
-            }
-          }
-
-          setTimeout(function () {
-            $('body').removeClass(_this3.cssClasses.bodyNoScroll).removeClass(_this3.cssClasses.bodyNoScrollPadRight).css('padding-right', '0');
-          }, transitionDuration);
-        }
-
-        if (callback) {
-          callback();
-        }
-      } }]);return ccPopup;}();
+      if (callback) {
+        callback();
+      }
+    }}
   ;
-  (function () {
+  (() => {
     theme.initAnimateOnScroll = function () {
       if (document.body.classList.contains('cc-animate-enabled') && window.innerWidth >= 768) {
         var animationTimeout = typeof document.body.dataset.ccAnimateTimeout !== "undefined" ? document.body.dataset.ccAnimateTimeout : 200;
 
         if ('IntersectionObserver' in window) {
-          var intersectionObserver = new IntersectionObserver(function (entries, observer) {
-            entries.forEach(function (entry) {
+          var intersectionObserver = new IntersectionObserver((entries, observer) => {
+            entries.forEach((entry) => {
               // In view and hasn't been animated yet
               if (entry.isIntersecting && !entry.target.classList.contains("cc-animate-complete")) {
-                setTimeout(function () {
+                setTimeout(() => {
                   entry.target.classList.add("-in", "cc-animate-complete");
                 }, animationTimeout);
 
-                setTimeout(function () {
+                setTimeout(() => {
                   //Once the animation is complete (assume 5 seconds), remove the animate attribute to remove all css
                   entry.target.classList.remove("data-cc-animate");
                   entry.target.style.transitionDuration = null;
@@ -901,7 +901,7 @@ function _get(target, property, receiver) {if (typeof Reflect !== "undefined" &&
             });
           });
 
-          document.querySelectorAll('[data-cc-animate]:not(.cc-animate-init)').forEach(function (elem) {
+          document.querySelectorAll('[data-cc-animate]:not(.cc-animate-init)').forEach((elem) => {
             //Set the animation delay
             if (elem.dataset.ccAnimateDelay) {
               elem.style.transitionDelay = elem.dataset.ccAnimateDelay;
@@ -934,23 +934,23 @@ function _get(target, property, receiver) {if (typeof Reflect !== "undefined" &&
 
     theme.initAnimateOnScroll();
 
-    document.addEventListener('shopify:section:load', function () {
+    document.addEventListener('shopify:section:load', () => {
       setTimeout(theme.initAnimateOnScroll, 100);
     });
 
     //Reload animations when changing from mobile to desktop
     try {
-      window.matchMedia('(min-width: 768px)').addEventListener('change', function (event) {
+      window.matchMedia('(min-width: 768px)').addEventListener('change', (event) => {
         if (event.matches) {
           setTimeout(theme.initAnimateOnScroll, 100);
         }
       });
     } catch (e) {}
-  })();var
+  })();
 
 
-  PriceRangeInstance = /*#__PURE__*/function () {"use strict";
-    function PriceRangeInstance(container) {var _this4 = this;_classCallCheck(this, PriceRangeInstance);
+  class PriceRangeInstance {
+    constructor(container) {
       this.container = container;
       this.selectors = {
         inputMin: '.cc-price-range__input--min',
@@ -977,9 +977,9 @@ function _get(target, property, receiver) {if (typeof Reflect !== "undefined" &&
       this.valueMax = this.controls.min.input.max;
       this.valueRange = this.valueMax - this.valueMin;
 
-      [this.controls.min, this.controls.max].forEach(function (item) {
-        item.barControl.setAttribute('aria-valuemin', _this4.valueMin);
-        item.barControl.setAttribute('aria-valuemax', _this4.valueMax);
+      [this.controls.min, this.controls.max].forEach((item) => {
+        item.barControl.setAttribute('aria-valuemin', this.valueMin);
+        item.barControl.setAttribute('aria-valuemax', this.valueMax);
         item.barControl.setAttribute('tabindex', 0);
       });
       this.controls.min.barControl.setAttribute('aria-valuenow', this.controls.min.value);
@@ -991,203 +991,203 @@ function _get(target, property, receiver) {if (typeof Reflect !== "undefined" &&
 
       this.bindEvents();
       this.render();
-    }_createClass(PriceRangeInstance, [{ key: "getPxToValueRatio", value:
+    }
 
-      function getPxToValueRatio() {
-        return this.bar.clientWidth / (this.valueMax - this.valueMin);
-      } }, { key: "getPcToValueRatio", value:
+    getPxToValueRatio() {
+      return this.bar.clientWidth / (this.valueMax - this.valueMin);
+    }
 
-      function getPcToValueRatio() {
-        return 100.0 / (this.valueMax - this.valueMin);
-      } }, { key: "setActiveControlValue", value:
+    getPcToValueRatio() {
+      return 100.0 / (this.valueMax - this.valueMin);
+    }
 
-      function setActiveControlValue(value) {
-        // only accept valid numbers
-        if (isNaN(parseInt(value))) return;
+    setActiveControlValue(value) {
+      // only accept valid numbers
+      if (isNaN(parseInt(value))) return;
 
-        // clamp & default
-        if (this.activeControl === this.controls.min) {
-          if (value === '') {
-            value = this.valueMin;
-          }
-          value = Math.max(this.valueMin, value);
-          value = Math.min(value, this.controls.max.value);
+      // clamp & default
+      if (this.activeControl === this.controls.min) {
+        if (value === '') {
+          value = this.valueMin;
+        }
+        value = Math.max(this.valueMin, value);
+        value = Math.min(value, this.controls.max.value);
+      } else {
+        if (value === '') {
+          value = this.valueMax;
+        }
+        value = Math.min(this.valueMax, value);
+        value = Math.max(value, this.controls.min.value);
+      }
+
+      // round
+      this.activeControl.value = Math.round(value);
+
+      // update input
+      if (this.activeControl.input.value != this.activeControl.value) {
+        if (this.activeControl.value == this.activeControl.input.placeholder) {
+          this.activeControl.input.value = '';
         } else {
-          if (value === '') {
-            value = this.valueMax;
-          }
-          value = Math.min(this.valueMax, value);
-          value = Math.max(value, this.controls.min.value);
+          this.activeControl.input.value = this.activeControl.value;
         }
+        this.activeControl.input.dispatchEvent(new CustomEvent('change', { bubbles: true, cancelable: false, detail: { sender: 'theme:component:price_range' } }));
+      }
 
-        // round
-        this.activeControl.value = Math.round(value);
+      // a11y
+      this.activeControl.barControl.setAttribute('aria-valuenow', this.activeControl.value);
+    }
 
-        // update input
-        if (this.activeControl.input.value != this.activeControl.value) {
-          if (this.activeControl.value == this.activeControl.input.placeholder) {
-            this.activeControl.input.value = '';
-          } else {
-            this.activeControl.input.value = this.activeControl.value;
-          }
-          this.activeControl.input.dispatchEvent(new CustomEvent('change', { bubbles: true, cancelable: false, detail: { sender: 'theme:component:price_range' } }));
-        }
+    render() {
+      this.drawControl(this.controls.min);
+      this.drawControl(this.controls.max);
+      this.drawActiveBar();
+    }
 
-        // a11y
-        this.activeControl.barControl.setAttribute('aria-valuenow', this.activeControl.value);
-      } }, { key: "render", value:
+    drawControl(control) {
+      control.barControl.style.left = (control.value - this.valueMin) * this.getPcToValueRatio() + '%';
+    }
 
-      function render() {
-        this.drawControl(this.controls.min);
-        this.drawControl(this.controls.max);
-        this.drawActiveBar();
-      } }, { key: "drawControl", value:
+    drawActiveBar() {
+      this.activeBar.style.left = (this.controls.min.value - this.valueMin) * this.getPcToValueRatio() + '%';
+      this.activeBar.style.right = (this.valueMax - this.controls.max.value) * this.getPcToValueRatio() + '%';
+    }
 
-      function drawControl(control) {
-        control.barControl.style.left = (control.value - this.valueMin) * this.getPcToValueRatio() + '%';
-      } }, { key: "drawActiveBar", value:
+    handleControlTouchStart(e) {
+      e.preventDefault();
+      this.startDrag(e.target, e.touches[0].clientX);
+      this.boundControlTouchMoveEvent = this.handleControlTouchMove.bind(this);
+      this.boundControlTouchEndEvent = this.handleControlTouchEnd.bind(this);
+      window.addEventListener('touchmove', this.boundControlTouchMoveEvent);
+      window.addEventListener('touchend', this.boundControlTouchEndEvent);
+    }
 
-      function drawActiveBar() {
-        this.activeBar.style.left = (this.controls.min.value - this.valueMin) * this.getPcToValueRatio() + '%';
-        this.activeBar.style.right = (this.valueMax - this.controls.max.value) * this.getPcToValueRatio() + '%';
-      } }, { key: "handleControlTouchStart", value:
+    handleControlTouchMove(e) {
+      this.moveDrag(e.touches[0].clientX);
+    }
 
-      function handleControlTouchStart(e) {
-        e.preventDefault();
-        this.startDrag(e.target, e.touches[0].clientX);
-        this.boundControlTouchMoveEvent = this.handleControlTouchMove.bind(this);
-        this.boundControlTouchEndEvent = this.handleControlTouchEnd.bind(this);
-        window.addEventListener('touchmove', this.boundControlTouchMoveEvent);
-        window.addEventListener('touchend', this.boundControlTouchEndEvent);
-      } }, { key: "handleControlTouchMove", value:
+    handleControlTouchEnd(e) {
+      e.preventDefault();
+      window.removeEventListener('touchmove', this.boundControlTouchMoveEvent);
+      window.removeEventListener('touchend', this.boundControlTouchEndEvent);
+      this.stopDrag();
+    }
 
-      function handleControlTouchMove(e) {
-        this.moveDrag(e.touches[0].clientX);
-      } }, { key: "handleControlTouchEnd", value:
+    handleControlMouseDown(e) {
+      e.preventDefault();
+      this.startDrag(e.target, e.clientX);
+      this.boundControlMouseMoveEvent = this.handleControlMouseMove.bind(this);
+      this.boundControlMouseUpEvent = this.handleControlMouseUp.bind(this);
+      window.addEventListener('mousemove', this.boundControlMouseMoveEvent);
+      window.addEventListener('mouseup', this.boundControlMouseUpEvent);
+    }
 
-      function handleControlTouchEnd(e) {
-        e.preventDefault();
-        window.removeEventListener('touchmove', this.boundControlTouchMoveEvent);
-        window.removeEventListener('touchend', this.boundControlTouchEndEvent);
-        this.stopDrag();
-      } }, { key: "handleControlMouseDown", value:
+    handleControlMouseMove(e) {
+      this.moveDrag(e.clientX);
+    }
 
-      function handleControlMouseDown(e) {
-        e.preventDefault();
-        this.startDrag(e.target, e.clientX);
-        this.boundControlMouseMoveEvent = this.handleControlMouseMove.bind(this);
-        this.boundControlMouseUpEvent = this.handleControlMouseUp.bind(this);
-        window.addEventListener('mousemove', this.boundControlMouseMoveEvent);
-        window.addEventListener('mouseup', this.boundControlMouseUpEvent);
-      } }, { key: "handleControlMouseMove", value:
+    handleControlMouseUp(e) {
+      e.preventDefault();
+      window.removeEventListener('mousemove', this.boundControlMouseMoveEvent);
+      window.removeEventListener('mouseup', this.boundControlMouseUpEvent);
+      this.stopDrag();
+    }
 
-      function handleControlMouseMove(e) {
-        this.moveDrag(e.clientX);
-      } }, { key: "handleControlMouseUp", value:
+    startDrag(target, startX) {
+      if (this.controls.min.barControl === target) {
+        this.activeControl = this.controls.min;
+      } else {
+        this.activeControl = this.controls.max;
+      }
+      this.dragStartX = startX;
+      this.dragStartValue = this.activeControl.value;
+      this.inDrag = true;
+    }
 
-      function handleControlMouseUp(e) {
-        e.preventDefault();
-        window.removeEventListener('mousemove', this.boundControlMouseMoveEvent);
-        window.removeEventListener('mouseup', this.boundControlMouseUpEvent);
-        this.stopDrag();
-      } }, { key: "startDrag", value:
-
-      function startDrag(target, startX) {
-        if (this.controls.min.barControl === target) {
-          this.activeControl = this.controls.min;
-        } else {
-          this.activeControl = this.controls.max;
-        }
-        this.dragStartX = startX;
-        this.dragStartValue = this.activeControl.value;
-        this.inDrag = true;
-      } }, { key: "moveDrag", value:
-
-      function moveDrag(moveX) {
-        if (this.inDrag) {
-          var value = this.dragStartValue + (moveX - this.dragStartX) / this.getPxToValueRatio();
-          this.setActiveControlValue(value);
-          this.render();
-        }
-      } }, { key: "stopDrag", value:
-
-      function stopDrag() {
-        this.inDrag = false;
-      } }, { key: "handleControlKeyDown", value:
-
-      function handleControlKeyDown(e) {
-        if (e.key === 'ArrowRight') {
-          this.incrementControlFromKeypress(e.target, 10.0);
-        } else if (e.key === 'ArrowLeft') {
-          this.incrementControlFromKeypress(e.target, -10.0);
-        }
-      } }, { key: "incrementControlFromKeypress", value:
-
-      function incrementControlFromKeypress(control, pxAmount) {
-        if (this.controls.min.barControl === control) {
-          this.activeControl = this.controls.min;
-        } else {
-          this.activeControl = this.controls.max;
-        }
-        this.setActiveControlValue(this.activeControl.value + pxAmount / this.getPxToValueRatio());
+    moveDrag(moveX) {
+      if (this.inDrag) {
+        var value = this.dragStartValue + (moveX - this.dragStartX) / this.getPxToValueRatio();
+        this.setActiveControlValue(value);
         this.render();
-      } }, { key: "handleInputChange", value:
+      }
+    }
 
-      function handleInputChange(e) {
-        // strip out non numeric values
-        e.target.value = e.target.value.replace(/\D/g, '');
+    stopDrag() {
+      this.inDrag = false;
+    }
 
-        if (!e.detail || e.detail.sender != 'theme:component:price_range') {
-          if (this.controls.min.input === e.target) {
-            this.activeControl = this.controls.min;
-          } else {
-            this.activeControl = this.controls.max;
-          }
-          this.setActiveControlValue(e.target.value);
-          this.render();
+    handleControlKeyDown(e) {
+      if (e.key === 'ArrowRight') {
+        this.incrementControlFromKeypress(e.target, 10.0);
+      } else if (e.key === 'ArrowLeft') {
+        this.incrementControlFromKeypress(e.target, -10.0);
+      }
+    }
+
+    incrementControlFromKeypress(control, pxAmount) {
+      if (this.controls.min.barControl === control) {
+        this.activeControl = this.controls.min;
+      } else {
+        this.activeControl = this.controls.max;
+      }
+      this.setActiveControlValue(this.activeControl.value + pxAmount / this.getPxToValueRatio());
+      this.render();
+    }
+
+    handleInputChange(e) {
+      // strip out non numeric values
+      e.target.value = e.target.value.replace(/\D/g, '');
+
+      if (!e.detail || e.detail.sender != 'theme:component:price_range') {
+        if (this.controls.min.input === e.target) {
+          this.activeControl = this.controls.min;
+        } else {
+          this.activeControl = this.controls.max;
         }
-      } }, { key: "handleInputKeyup", value:
+        this.setActiveControlValue(e.target.value);
+        this.render();
+      }
+    }
 
-      function handleInputKeyup(e) {
-        // enforce numeric chars in the input
-        setTimeout(function () {
-          this.value = this.value.replace(/\D/g, '');
-        }.bind(e.target), 10);
-      } }, { key: "bindEvents", value:
+    handleInputKeyup(e) {
+      // enforce numeric chars in the input
+      setTimeout(function () {
+        this.value = this.value.replace(/\D/g, '');
+      }.bind(e.target), 10);
+    }
 
-      function bindEvents() {var _this5 = this;
-        [this.controls.min, this.controls.max].forEach(function (item) {
-          item.barControl.addEventListener('touchstart', _this5.handleControlTouchStart.bind(_this5));
-          item.barControl.addEventListener('mousedown', _this5.handleControlMouseDown.bind(_this5));
-          item.barControl.addEventListener('keydown', _this5.handleControlKeyDown.bind(_this5));
-          item.input.addEventListener('change', _this5.handleInputChange.bind(_this5));
-          item.input.addEventListener('keyup', _this5.handleInputKeyup.bind(_this5));
-        });
-      } }, { key: "destroy", value:
+    bindEvents() {
+      [this.controls.min, this.controls.max].forEach((item) => {
+        item.barControl.addEventListener('touchstart', this.handleControlTouchStart.bind(this));
+        item.barControl.addEventListener('mousedown', this.handleControlMouseDown.bind(this));
+        item.barControl.addEventListener('keydown', this.handleControlKeyDown.bind(this));
+        item.input.addEventListener('change', this.handleInputChange.bind(this));
+        item.input.addEventListener('keyup', this.handleInputKeyup.bind(this));
+      });
+    }
 
-      function destroy() {
-      } }]);return PriceRangeInstance;}();var
-
-
-  PriceRange = /*#__PURE__*/function (_ccComponent) {"use strict";_inherits(PriceRange, _ccComponent);var _super = _createSuper(PriceRange);
-    function PriceRange() {var name = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 'price-range';var cssSelector = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : ".cc-".concat(name);_classCallCheck(this, PriceRange);return _super.call(this,
-      name, cssSelector);
-    }_createClass(PriceRange, [{ key: "init", value:
-
-      function init(container) {
-        _get(_getPrototypeOf(PriceRange.prototype), "init", this).call(this, container);
-        this.registerInstance(container, new PriceRangeInstance(container));
-      } }, { key: "destroy", value:
-
-      function destroy(container) {
-        this.destroyInstance(container);
-        _get(_getPrototypeOf(PriceRange.prototype), "destroy", this).call(this, container);
-      } }]);return PriceRange;}(ccComponent);
+    destroy() {
+    }}
 
 
-  new PriceRange();var
-  AccordionInstance = /*#__PURE__*/function () {"use strict";
-    function AccordionInstance(container) {_classCallCheck(this, AccordionInstance);
+  class PriceRange extends ccComponent {
+    constructor() {var name = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 'price-range';var cssSelector = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : ".cc-".concat(name);
+      super(name, cssSelector);
+    }
+
+    init(container) {
+      super.init(container);
+      this.registerInstance(container, new PriceRangeInstance(container));
+    }
+
+    destroy(container) {
+      this.destroyInstance(container);
+      super.destroy(container);
+    }}
+
+
+  new PriceRange();
+  class AccordionInstance {
+    constructor(container) {
       this.accordion = container;
       this.itemClass = '.cc-accordion-item';
       this.titleClass = '.cc-accordion-item__title';
@@ -1205,143 +1205,143 @@ function _get(target, property, receiver) {if (typeof Reflect !== "undefined" &&
     /**
      * Adds inline 'height' style to a panel, to trigger open transition
      * @param {HTMLDivElement} panel - The accordion item content panel
-     */_createClass(AccordionInstance, [{ key: "open", value:
+     */
+    static addPanelHeight(panel) {
+      panel.style.height = "".concat(panel.scrollHeight, "px");
+    }
 
+    /**
+     * Removes inline 'height' style from a panel, to trigger close transition
+     * @param {HTMLDivElement} panel - The accordion item content panel
+     */
+    static removePanelHeight(panel) {
+      panel.getAttribute('style'); // Fix Safari bug (doesn't remove attribute without this first!)
+      panel.removeAttribute('style');
+    }
 
+    /**
+     * Opens an accordion item
+     * @param {HTMLDetailsElement} item - The accordion item
+     * @param {HTMLDivElement} panel - The accordion item content panel
+     */
+    open(item, panel) {
+      panel.style.height = '0';
 
+      // Set item to open. Blocking the default click action and opening it this way prevents a
+      // slight delay which causes the panel height to be set to '0' (because item's not open yet)
+      item.open = true;
 
+      AccordionInstance.addPanelHeight(panel);
 
+      // Slight delay required before starting transitions
+      setTimeout(() => {
+        item.classList.add('is-open');
+      }, 10);
 
+      if (!this.allowMultiOpen) {
+        // If there's an active item and it's not the opened item, close it
+        if (this.activeItem && this.activeItem !== item) {
+          var activePanel = this.activeItem.querySelector(this.panelClass);
+          this.close(this.activeItem, activePanel);
+        }
 
+        this.activeItem = item;
+      }
+    }
 
+    /**
+     * Closes an accordion item
+     * @param {HTMLDetailsElement} item - The accordion item
+     * @param {HTMLDivElement} panel - The accordion item content panel
+     */
+    close(item, panel) {
+      AccordionInstance.addPanelHeight(panel);
 
+      item.classList.remove('is-open');
+      item.classList.add('is-closing');
 
+      if (this.activeItem === item) {
+        this.activeItem = null;
+      }
 
-
-
-      /**
-       * Opens an accordion item
-       * @param {HTMLDetailsElement} item - The accordion item
-       * @param {HTMLDivElement} panel - The accordion item content panel
-       */
-      function open(item, panel) {
+      // Slight delay required to allow scroll height to be applied before changing to '0'
+      setTimeout(() => {
         panel.style.height = '0';
+      }, 10);
+    }
 
-        // Set item to open. Blocking the default click action and opening it this way prevents a
-        // slight delay which causes the panel height to be set to '0' (because item's not open yet)
-        item.open = true;
+    /**
+     * Handles 'click' event on the accordion
+     * @param {Object} e - The event object
+     */
+    handleClick(e) {
+      // Ignore clicks outside a toggle (<summary> element)
+      var toggle = e.target.closest(this.titleClass);
+      if (!toggle) return;
 
-        AccordionInstance.addPanelHeight(panel);
+      // Prevent the default action
+      // We'll trigger it manually after open transition initiated or close transition complete
+      e.preventDefault();
 
-        // Slight delay required before starting transitions
-        setTimeout(function () {
-          item.classList.add('is-open');
-        }, 10);
+      var item = toggle.parentNode;
+      var panel = toggle.nextElementSibling;
 
-        if (!this.allowMultiOpen) {
-          // If there's an active item and it's not the opened item, close it
-          if (this.activeItem && this.activeItem !== item) {
-            var activePanel = this.activeItem.querySelector(this.panelClass);
-            this.close(this.activeItem, activePanel);
-          }
+      if (item.open) {
+        this.close(item, panel);
+      } else {
+        this.open(item, panel);
+      }
+    }
 
-          this.activeItem = item;
-        }
+    /**
+     * Handles 'transitionend' event in the accordion
+     * @param {Object} e - The event object
+     */
+    handleTransition(e) {
+      // Ignore transitions not on a panel element
+      if (!e.target.matches(this.panelClass)) return;
+
+      var panel = e.target;
+      var item = panel.parentNode;
+
+      if (item.classList.contains('is-closing')) {
+        item.classList.remove('is-closing');
+        item.open = false;
       }
 
-      /**
-       * Closes an accordion item
-       * @param {HTMLDetailsElement} item - The accordion item
-       * @param {HTMLDivElement} panel - The accordion item content panel
-       */ }, { key: "close", value:
-      function close(item, panel) {
-        AccordionInstance.addPanelHeight(panel);
+      AccordionInstance.removePanelHeight(panel);
+    }
 
-        item.classList.remove('is-open');
-        item.classList.add('is-closing');
+    bindEvents() {
+      // Need to assign the function calls to variables because bind creates a new function,
+      // which means the event listeners can't be removed in the usual way
+      this.clickHandler = this.handleClick.bind(this);
+      this.transitionHandler = this.handleTransition.bind(this);
 
-        if (this.activeItem === item) {
-          this.activeItem = null;
-        }
+      this.accordion.addEventListener('click', this.clickHandler);
+      this.accordion.addEventListener('transitionend', this.transitionHandler);
+    }
 
-        // Slight delay required to allow scroll height to be applied before changing to '0'
-        setTimeout(function () {
-          panel.style.height = '0';
-        }, 10);
-      }
+    destroy() {
+      this.accordion.removeEventListener('click', this.clickHandler);
+      this.accordion.removeEventListener('transitionend', this.transitionHandler);
+    }}
 
-      /**
-       * Handles 'click' event on the accordion
-       * @param {Object} e - The event object
-       */ }, { key: "handleClick", value:
-      function handleClick(e) {
-        // Ignore clicks outside a toggle (<summary> element)
-        var toggle = e.target.closest(this.titleClass);
-        if (!toggle) return;
 
-        // Prevent the default action
-        // We'll trigger it manually after open transition initiated or close transition complete
-        e.preventDefault();
+  class Accordion extends ccComponent {
+    constructor() {var name = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 'accordion';var cssSelector = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : ".cc-".concat(name);
+      super(name, cssSelector);
+    }
 
-        var item = toggle.parentNode;
-        var panel = toggle.nextElementSibling;
+    init(container) {
+      super.init(container);
+      this.registerInstance(container, new AccordionInstance(container));
+    }
 
-        if (item.open) {
-          this.close(item, panel);
-        } else {
-          this.open(item, panel);
-        }
-      }
-
-      /**
-       * Handles 'transitionend' event in the accordion
-       * @param {Object} e - The event object
-       */ }, { key: "handleTransition", value:
-      function handleTransition(e) {
-        // Ignore transitions not on a panel element
-        if (!e.target.matches(this.panelClass)) return;
-
-        var panel = e.target;
-        var item = panel.parentNode;
-
-        if (item.classList.contains('is-closing')) {
-          item.classList.remove('is-closing');
-          item.open = false;
-        }
-
-        AccordionInstance.removePanelHeight(panel);
-      } }, { key: "bindEvents", value:
-
-      function bindEvents() {
-        // Need to assign the function calls to variables because bind creates a new function,
-        // which means the event listeners can't be removed in the usual way
-        this.clickHandler = this.handleClick.bind(this);
-        this.transitionHandler = this.handleTransition.bind(this);
-
-        this.accordion.addEventListener('click', this.clickHandler);
-        this.accordion.addEventListener('transitionend', this.transitionHandler);
-      } }, { key: "destroy", value:
-
-      function destroy() {
-        this.accordion.removeEventListener('click', this.clickHandler);
-        this.accordion.removeEventListener('transitionend', this.transitionHandler);
-      } }], [{ key: "addPanelHeight", value: function addPanelHeight(panel) {panel.style.height = "".concat(panel.scrollHeight, "px");} /**
-       * Removes inline 'height' style from a panel, to trigger close transition
-       * @param {HTMLDivElement} panel - The accordion item content panel
-       */ }, { key: "removePanelHeight", value: function removePanelHeight(panel) {panel.getAttribute('style'); // Fix Safari bug (doesn't remove attribute without this first!)
-        panel.removeAttribute('style');} }]);return AccordionInstance;}();var Accordion = /*#__PURE__*/function (_ccComponent2) {"use strict";_inherits(Accordion, _ccComponent2);var _super2 = _createSuper(Accordion);function Accordion() {var name = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 'accordion';var cssSelector = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : ".cc-".concat(name);_classCallCheck(this, Accordion);return _super2.call(this,
-      name, cssSelector);
-    }_createClass(Accordion, [{ key: "init", value:
-
-      function init(container) {
-        _get(_getPrototypeOf(Accordion.prototype), "init", this).call(this, container);
-        this.registerInstance(container, new AccordionInstance(container));
-      } }, { key: "destroy", value:
-
-      function destroy(container) {
-        this.destroyInstance(container);
-        _get(_getPrototypeOf(Accordion.prototype), "destroy", this).call(this, container);
-      } }]);return Accordion;}(ccComponent);
+    destroy(container) {
+      this.destroyInstance(container);
+      super.destroy(container);
+    }}
 
 
   new Accordion();
@@ -1438,13 +1438,13 @@ function _get(target, property, receiver) {if (typeof Reflect !== "undefined" &&
         if (this.loop) {
           // 4 times a second, check if we're in the final second of the video. If so, loop it for a more seamless loop
           var finalSecond = event.target.getDuration() - 1;
-          if (finalSecond > 2) {var
-            loopTheVideo = function loopTheVideo() {
+          if (finalSecond > 2) {
+            function loopTheVideo() {
               if (event.target.getCurrentTime() > finalSecond) {
                 event.target.seekTo(0);
               }
               setTimeout(loopTheVideo, 250);
-            };
+            }
             loopTheVideo();
           }
         }
@@ -1611,8 +1611,8 @@ function _get(target, property, receiver) {if (typeof Reflect !== "undefined" &&
 
     // background video placement for iframes
     _._initBackgroundVideo = function ($container) {
-      if ($container.hasClass('video-container--background') && $container.find('.video-container__video iframe').length) {var
-        assessBackgroundVideo = function assessBackgroundVideo() {
+      if ($container.hasClass('video-container--background') && $container.find('.video-container__video iframe').length) {
+        function assessBackgroundVideo() {
           var $container = this,
           cw = $container.width(),
           ch = $container.height(),
@@ -1638,7 +1638,7 @@ function _get(target, property, receiver) {if (typeof Reflect !== "undefined" &&
               width: vw });
 
           }
-        };
+        }
         assessBackgroundVideo.bind($container)();
         $(window).on('debouncedresize.' + $container.data('video-container-id'), assessBackgroundVideo.bind($container));
       }
@@ -1744,7 +1744,7 @@ function _get(target, property, receiver) {if (typeof Reflect !== "undefined" &&
     _.config = {
       zoom: 14,
       styles: {
-        "default": [],
+        default: [],
         silver: [{ "elementType": "geometry", "stylers": [{ "color": "#f5f5f5" }] }, { "elementType": "labels.icon", "stylers": [{ "visibility": "off" }] }, { "elementType": "labels.text.fill", "stylers": [{ "color": "#616161" }] }, { "elementType": "labels.text.stroke", "stylers": [{ "color": "#f5f5f5" }] }, { "featureType": "administrative.land_parcel", "elementType": "labels.text.fill", "stylers": [{ "color": "#bdbdbd" }] }, { "featureType": "poi", "elementType": "geometry", "stylers": [{ "color": "#eeeeee" }] }, { "featureType": "poi", "elementType": "labels.text.fill", "stylers": [{ "color": "#757575" }] }, { "featureType": "poi.park", "elementType": "geometry", "stylers": [{ "color": "#e5e5e5" }] }, { "featureType": "poi.park", "elementType": "labels.text.fill", "stylers": [{ "color": "#9e9e9e" }] }, { "featureType": "road", "elementType": "geometry", "stylers": [{ "color": "#ffffff" }] }, { "featureType": "road.arterial", "elementType": "labels.text.fill", "stylers": [{ "color": "#757575" }] }, { "featureType": "road.highway", "elementType": "geometry", "stylers": [{ "color": "#dadada" }] }, { "featureType": "road.highway", "elementType": "labels.text.fill", "stylers": [{ "color": "#616161" }] }, { "featureType": "road.local", "elementType": "labels.text.fill", "stylers": [{ "color": "#9e9e9e" }] }, { "featureType": "transit.line", "elementType": "geometry", "stylers": [{ "color": "#e5e5e5" }] }, { "featureType": "transit.station", "elementType": "geometry", "stylers": [{ "color": "#eeeeee" }] }, { "featureType": "water", "elementType": "geometry", "stylers": [{ "color": "#c9c9c9" }] }, { "featureType": "water", "elementType": "labels.text.fill", "stylers": [{ "color": "#9e9e9e" }] }],
         retro: [{ "elementType": "geometry", "stylers": [{ "color": "#ebe3cd" }] }, { "elementType": "labels.text.fill", "stylers": [{ "color": "#523735" }] }, { "elementType": "labels.text.stroke", "stylers": [{ "color": "#f5f1e6" }] }, { "featureType": "administrative", "elementType": "geometry.stroke", "stylers": [{ "color": "#c9b2a6" }] }, { "featureType": "administrative.land_parcel", "elementType": "geometry.stroke", "stylers": [{ "color": "#dcd2be" }] }, { "featureType": "administrative.land_parcel", "elementType": "labels.text.fill", "stylers": [{ "color": "#ae9e90" }] }, { "featureType": "landscape.natural", "elementType": "geometry", "stylers": [{ "color": "#dfd2ae" }] }, { "featureType": "poi", "elementType": "geometry", "stylers": [{ "color": "#dfd2ae" }] }, { "featureType": "poi", "elementType": "labels.text.fill", "stylers": [{ "color": "#93817c" }] }, { "featureType": "poi.park", "elementType": "geometry.fill", "stylers": [{ "color": "#a5b076" }] }, { "featureType": "poi.park", "elementType": "labels.text.fill", "stylers": [{ "color": "#447530" }] }, { "featureType": "road", "elementType": "geometry", "stylers": [{ "color": "#f5f1e6" }] }, { "featureType": "road.arterial", "elementType": "geometry", "stylers": [{ "color": "#fdfcf8" }] }, { "featureType": "road.highway", "elementType": "geometry", "stylers": [{ "color": "#f8c967" }] }, { "featureType": "road.highway", "elementType": "geometry.stroke", "stylers": [{ "color": "#e9bc62" }] }, { "featureType": "road.highway.controlled_access", "elementType": "geometry", "stylers": [{ "color": "#e98d58" }] }, { "featureType": "road.highway.controlled_access", "elementType": "geometry.stroke", "stylers": [{ "color": "#db8555" }] }, { "featureType": "road.local", "elementType": "labels.text.fill", "stylers": [{ "color": "#806b63" }] }, { "featureType": "transit.line", "elementType": "geometry", "stylers": [{ "color": "#dfd2ae" }] }, { "featureType": "transit.line", "elementType": "labels.text.fill", "stylers": [{ "color": "#8f7d77" }] }, { "featureType": "transit.line", "elementType": "labels.text.stroke", "stylers": [{ "color": "#ebe3cd" }] }, { "featureType": "transit.station", "elementType": "geometry", "stylers": [{ "color": "#dfd2ae" }] }, { "featureType": "water", "elementType": "geometry.fill", "stylers": [{ "color": "#b9d3c2" }] }, { "featureType": "water", "elementType": "labels.text.fill", "stylers": [{ "color": "#92998d" }] }],
         dark: [{ "elementType": "geometry", "stylers": [{ "color": "#212121" }] }, { "elementType": "labels.icon", "stylers": [{ "visibility": "off" }] }, { "elementType": "labels.text.fill", "stylers": [{ "color": "#757575" }] }, { "elementType": "labels.text.stroke", "stylers": [{ "color": "#212121" }] }, { "featureType": "administrative", "elementType": "geometry", "stylers": [{ "color": "#757575" }] }, { "featureType": "administrative.country", "elementType": "labels.text.fill", "stylers": [{ "color": "#9e9e9e" }] }, { "featureType": "administrative.land_parcel", "stylers": [{ "visibility": "off" }] }, { "featureType": "administrative.locality", "elementType": "labels.text.fill", "stylers": [{ "color": "#bdbdbd" }] }, { "featureType": "poi", "elementType": "labels.text.fill", "stylers": [{ "color": "#757575" }] }, { "featureType": "poi.park", "elementType": "geometry", "stylers": [{ "color": "#181818" }] }, { "featureType": "poi.park", "elementType": "labels.text.fill", "stylers": [{ "color": "#616161" }] }, { "featureType": "poi.park", "elementType": "labels.text.stroke", "stylers": [{ "color": "#1b1b1b" }] }, { "featureType": "road", "elementType": "geometry.fill", "stylers": [{ "color": "#2c2c2c" }] }, { "featureType": "road", "elementType": "labels.text.fill", "stylers": [{ "color": "#8a8a8a" }] }, { "featureType": "road.arterial", "elementType": "geometry", "stylers": [{ "color": "#373737" }] }, { "featureType": "road.highway", "elementType": "geometry", "stylers": [{ "color": "#3c3c3c" }] }, { "featureType": "road.highway.controlled_access", "elementType": "geometry", "stylers": [{ "color": "#4e4e4e" }] }, { "featureType": "road.local", "elementType": "labels.text.fill", "stylers": [{ "color": "#616161" }] }, { "featureType": "transit", "elementType": "labels.text.fill", "stylers": [{ "color": "#757575" }] }, { "featureType": "water", "elementType": "geometry", "stylers": [{ "color": "#000000" }] }, { "featureType": "water", "elementType": "labels.text.fill", "stylers": [{ "color": "#3d3d3d" }] }],
@@ -1885,7 +1885,7 @@ function _get(target, property, receiver) {if (typeof Reflect !== "undefined" &&
 
     var dismissedStorageKey = 'cc-theme-popup-dismissed';
 
-    this.onSectionLoad = function (container) {var _this6 = this;
+    this.onSectionLoad = function (container) {
       this.namespace = theme.namespaceFromSection(container);
       this.$container = $(container);
       this.popup = new ccPopup(this.$container, this.namespace);
@@ -1923,15 +1923,15 @@ function _get(target, property, receiver) {if (typeof Reflect !== "undefined" &&
 
       // Show popup, if appropriate
       if (showPopup || testMode) {
-        setTimeout(function () {
-          _this6.popup.open();
+        setTimeout(() => {
+          this.popup.open();
         }, delaySeconds * 1000);
       }
 
       // Click on close button or modal background
-      this.$container.on('click' + this.namespace, '.cc-popup-close, .cc-popup-background', function () {
-        _this6.popup.close(function () {
-          _this6.functions.popupSetAsDismissed.call(_this6);
+      this.$container.on('click' + this.namespace, '.cc-popup-close, .cc-popup-background', () => {
+        this.popup.close(() => {
+          this.functions.popupSetAsDismissed.call(this);
         });
       });
     };
@@ -1974,7 +1974,7 @@ function _get(target, property, receiver) {if (typeof Reflect !== "undefined" &&
     var initClass = 'store-availability-initialized';
     var storageKey = 'cc-location';
 
-    this.onSectionLoad = function (container) {var _this7 = this;
+    this.onSectionLoad = function (container) {
       this.namespace = theme.namespaceFromSection(container);
       this.$container = $(container);
       this.productId = this.$container.data('store-availability-container');
@@ -1984,13 +1984,13 @@ function _get(target, property, receiver) {if (typeof Reflect !== "undefined" &&
       var firstRun = true;
 
       // Handle when a variant is selected
-      $(window).on("cc-variant-updated".concat(this.namespace).concat(this.productId), function (e, args) {
-        if (args.product.id === _this7.productId) {
-          _this7.functions.updateContent.bind(_this7)(
+      $(window).on("cc-variant-updated".concat(this.namespace).concat(this.productId), (e, args) => {
+        if (args.product.id === this.productId) {
+          this.functions.updateContent.bind(this)(
           args.variant.id,
           args.product.title,
           firstRun,
-          _this7.$container.data('has-only-default-variant'),
+          this.$container.data('has-only-default-variant'),
           typeof args.variant.available !== "undefined");
 
           firstRun = false;
@@ -2021,7 +2021,7 @@ function _get(target, property, receiver) {if (typeof Reflect !== "undefined" &&
     this.functions = {
       // Returns the users location data (if allowed)
       getUserLocation: function getUserLocation() {
-        return new Promise(function (resolve, reject) {
+        return new Promise((resolve, reject) => {
           var storedCoords;
 
           if (sessionStorage[storageKey]) {
@@ -2099,7 +2099,7 @@ function _get(target, property, receiver) {if (typeof Reflect !== "undefined" &&
         var unitSystem = this.$modal.find('[data-unit-system]').data('unit-system');
         var self = this;
 
-        this.$modal.find('[data-distance="false"]').each(function () {var _this8 = this;
+        this.$modal.find('[data-distance="false"]').each(function () {
           var thisCoords = {
             latitude: parseFloat($(this).data('latitude')),
             longitude: parseFloat($(this).data('longitude')) };
@@ -2112,8 +2112,8 @@ function _get(target, property, receiver) {if (typeof Reflect !== "undefined" &&
             $(this).html(distance);
 
             //Timeout to trigger animation
-            setTimeout(function () {
-              $(_this8).closest('.store-availability-list__location__distance').addClass('-in');
+            setTimeout(() => {
+              $(this).closest('.store-availability-list__location__distance').addClass('-in');
             }, 0);
           }
 
@@ -2122,7 +2122,7 @@ function _get(target, property, receiver) {if (typeof Reflect !== "undefined" &&
       },
 
       // Requests the available stores and updates the page with info below Add to Basket, and append the modal to the page
-      updateContent: function updateContent(variantId, productTitle, firstRun, isSingleDefaultVariant, isVariantAvailable) {var _this9 = this;
+      updateContent: function updateContent(variantId, productTitle, firstRun, isSingleDefaultVariant, isVariantAvailable) {
         this.$container.off('click', '[data-store-availability-modal-open]');
         this.$container.off('click' + this.namespace, '.cc-popup-close, .cc-popup-background');
         $('.store-availabilities-modal').remove();
@@ -2139,32 +2139,32 @@ function _get(target, property, receiver) {if (typeof Reflect !== "undefined" &&
         }
 
         if (isVariantAvailable) {
-          this.functions.getAvailableStores.call(this, variantId, function (response) {
+          this.functions.getAvailableStores.call(this, variantId, (response) => {
             if (response.trim().length > 0 && !response.includes('NO_PICKUP')) {
-              _this9.$container.html(response);
-              _this9.$container.html(_this9.$container.children().first().html()); // editor bug workaround
+              this.$container.html(response);
+              this.$container.html(this.$container.children().first().html()); // editor bug workaround
 
-              _this9.$container.find('[data-store-availability-modal-product-title]').html(productTitle);
+              this.$container.find('[data-store-availability-modal-product-title]').html(productTitle);
 
               if (isSingleDefaultVariant) {
-                _this9.$container.find('.store-availabilities-modal__variant-title').remove();
+                this.$container.find('.store-availabilities-modal__variant-title').remove();
               }
 
-              _this9.$container.find('.cc-popup').appendTo('body');
+              this.$container.find('.cc-popup').appendTo('body');
 
-              _this9.$modal = $('body').find('.store-availabilities-modal');
-              var popup = new ccPopup(_this9.$modal, _this9.namespace);
+              this.$modal = $('body').find('.store-availabilities-modal');
+              var popup = new ccPopup(this.$modal, this.namespace);
 
-              _this9.$container.on('click', '[data-store-availability-modal-open]', function () {
+              this.$container.on('click', '[data-store-availability-modal-open]', () => {
                 popup.open();
 
                 //When the modal is opened, try and get the users location
-                _this9.functions.getUserLocation().then(function (coords) {
-                  if (coords && _this9.$modal.find('[data-distance="false"]').length) {
+                this.functions.getUserLocation().then((coords) => {
+                  if (coords && this.$modal.find('[data-distance="false"]').length) {
                     //Re-retrieve the available stores location modal contents
-                    _this9.functions.getAvailableStores.call(_this9, variantId, function (response) {
-                      _this9.$modal.find('.store-availabilities-list').html($(response).find('.store-availabilities-list').html());
-                      _this9.functions.updateLocationDistances.bind(_this9)(coords);
+                    this.functions.getAvailableStores.call(this, variantId, (response) => {
+                      this.$modal.find('.store-availabilities-list').html($(response).find('.store-availabilities-list').html());
+                      this.functions.updateLocationDistances.bind(this)(coords);
                     });
                   }
                 });
@@ -2172,18 +2172,18 @@ function _get(target, property, receiver) {if (typeof Reflect !== "undefined" &&
                 return false;
               });
 
-              _this9.$modal.on('click' + _this9.namespace, '.cc-popup-close, .cc-popup-background', function () {
+              this.$modal.on('click' + this.namespace, '.cc-popup-close, .cc-popup-background', () => {
                 popup.close();
               });
 
               if (firstRun) {
-                _this9.$container.slideDown(300);
+                this.$container.slideDown(300);
               } else {
-                _this9.$container.removeClass(loadingClass);
+                this.$container.removeClass(loadingClass);
 
-                var newHeight = _this9.$container.find('.store-availability-container').outerHeight();
+                var newHeight = this.$container.find('.store-availability-container').outerHeight();
 
-                _this9.$container.css('height', newHeight > 0 ? newHeight + 'px' : 'auto');
+                this.$container.css('height', newHeight > 0 ? newHeight + 'px' : 'auto');
               }
             }
           });
@@ -2212,16 +2212,16 @@ function _get(target, property, receiver) {if (typeof Reflect !== "undefined" &&
     tick: '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-check"><polyline points="20 6 9 17 4 12"></polyline></svg>' };
 
   theme.viewport = {
-    isXs: function isXs() {
+    isXs: () => {
       return $(window).outerWidth() < 768;
     },
-    isSm: function isSm() {
+    isSm: () => {
       return $(window).outerWidth() >= 768;
     },
-    isMd: function isMd() {
+    isMd: () => {
       return $(window).outerWidth() >= 992;
     },
-    isLg: function isLg() {
+    isLg: () => {
       return $(window).outerWidth() >= 1200;
     },
     scrollTo: function scrollTo($elem) {var scrollTop = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : -1;var speed = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 1000;var offset = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : 0;var compensateForNavToolbar = arguments.length > 4 && arguments[4] !== undefined ? arguments[4] : false;
@@ -2237,16 +2237,16 @@ function _get(target, property, receiver) {if (typeof Reflect !== "undefined" &&
         scrollTop = $elem.offset().top - offset;
       }
 
-      $('html,body').animate({ scrollTop: scrollTop }, speed);
+      $('html,body').animate({ scrollTop }, speed);
     } };
 
   theme.browser = {
-    isSafari: function isSafari() {
+    isSafari: () => {
       return navigator.userAgent.indexOf('Safari') != -1 && navigator.userAgent.indexOf('Chrome') == -1;
     } };
 
   theme.device = {
-    isTouch: function isTouch() {
+    isTouch: () => {
       try {
         document.createEvent("TouchEvent");
         return true;
@@ -2280,8 +2280,8 @@ function _get(target, property, receiver) {if (typeof Reflect !== "undefined" &&
       }
     }
     theme.imageLazyLoader = {
-      loadLazyImage: function loadLazyImage() {},
-      loadLazyImages: function loadLazyImages() {} };
+      loadLazyImage: () => {},
+      loadLazyImages: () => {} };
 
   }
   ;
@@ -2299,7 +2299,7 @@ function _get(target, property, receiver) {if (typeof Reflect !== "undefined" &&
     $('.slideshow', target).each(function () {
       $(this).on('init', function () {
         //Lazyload all slide images after a few seconds
-        setTimeout(function () {
+        setTimeout(() => {
           $('.slideshow', target).find('img[loading="lazy"]').each(function () {
             theme.imageLazyLoader.loadLazyImage($(this)[0]);
             $(this).attr('loading', 'auto');
@@ -2331,7 +2331,7 @@ function _get(target, property, receiver) {if (typeof Reflect !== "undefined" &&
 
 
 
-      on('beforeChange', function (event, slick, currentSlide, nextSlide) {var _this10 = this;
+      on('beforeChange', function (event, slick, currentSlide, nextSlide) {
         //Figure out the direction we're travelling in
         var direction = "left";
         if ((nextSlide < currentSlide && !(currentSlide === lastSlide && nextSlide === 0) || currentSlide == 0 && nextSlide === lastSlide) &&
@@ -2346,13 +2346,13 @@ function _get(target, property, receiver) {if (typeof Reflect !== "undefined" &&
         $outgoingSlide.addClass('-outgoing').addClass('-leaving');
 
         var movingToClonedSlide = currentSlide === lastSlide && nextSlide === nextSlide || currentSlide === 0 && nextSlide === lastSlide;
-        setTimeout(function () {
+        setTimeout(() => {
           //Remove the direction and animate the text in
-          $(_this10).removeClass('direction-left').removeClass('direction-right');
+          $(this).removeClass('direction-left').removeClass('direction-right');
           $outgoingSlide.removeClass('-outgoing');
         }, movingToClonedSlide ? 600 : 100); //Cloned slides take longer to initialise
 
-        setTimeout(function () {
+        setTimeout(() => {
           $outgoingSlide.removeClass('-leaving');
         }, 1000);
 
@@ -2370,8 +2370,8 @@ function _get(target, property, receiver) {if (typeof Reflect !== "undefined" &&
     // set up
     $('.reading-column [data-fullwidth]:not(.uncontain)', container).addClass('uncontain');
     // event
-    if ($('.reading-column .uncontain').length > 0) {var
-      checkWideImages = function checkWideImages() {
+    if ($('.reading-column .uncontain').length > 0) {
+      function checkWideImages() {
         var contW = $('#page-wrap-inner').css('border-color') == 'rgb(255, 0, 1)' ? $(window).width() : $('.container:visible:first').width();
         $('.reading-column .uncontain').each(function () {
           var thisContW = $(this).closest('div:not(.uncontain), p:not(.uncontain)').width();
@@ -2381,7 +2381,7 @@ function _get(target, property, receiver) {if (typeof Reflect !== "undefined" &&
             maxWidth: 'none' });
 
         });
-      };
+      }
       $(window).on('resize.wideimgs wideimgs.wideimgs', checkWideImages).trigger('wideimgs');
       $(function () {
         checkWideImages();
@@ -2646,9 +2646,6 @@ function _get(target, property, receiver) {if (typeof Reflect !== "undefined" &&
 
             // update price
             _.updatePrice(variant, $container);
-
-            // update Smartrr variant
-            _.updateSmartrrVariant(variant, $container);
 
             // update buttons
             _.updateButtons(variant, $container);
@@ -3249,7 +3246,7 @@ function _get(target, property, receiver) {if (typeof Reflect !== "undefined" &&
       var thisCartItem;
 
       if (cartItemData && cartItemData.items && currentVariantId) {
-        cartContainsThisVariant = cartItemData.items.some(function (variant) {
+        cartContainsThisVariant = cartItemData.items.some((variant) => {
           if (variant.id == currentVariantId) {
             thisCartItem = variant;
             return true;
@@ -3280,12 +3277,12 @@ function _get(target, property, receiver) {if (typeof Reflect !== "undefined" &&
     if (formHasAjaxButtons) {
       updateAjaxButtons();
 
-      $(window).on('cc-cart-updated', function () {
+      $(window).on('cc-cart-updated', () => {
         $('[name="id"]', $form).trigger('change');
       });
     }
 
-    $(window).on("cc-variant-updated.ajax-buttons".concat(productData.id), function (e, args) {
+    $(window).on("cc-variant-updated.ajax-buttons".concat(productData.id), (e, args) => {
       if (args.product.id === productData.id) {
         if (args.variant.available) {
           if (formHasAjaxButtons) {
@@ -3322,14 +3319,6 @@ function _get(target, property, receiver) {if (typeof Reflect !== "undefined" &&
       var $form = $(this);
       var quantity = 1;
       var $quantity = $form.find('.qty-adjuster__value');
-      
-      if ($form.hasClass('form-is-buying')) {
-        return;
-      }
-      $form.addClass('form-is-buying');
-      setTimeout(function () {
-        $form.removeClass('form-is-buying');
-      }, 150);
 
       if ($quantity.length) {
         quantity = $quantity.val();
@@ -3349,19 +3338,19 @@ function _get(target, property, receiver) {if (typeof Reflect !== "undefined" &&
       if (serializedForm.indexOf('quantity=') === -1) {
         serializedForm += "&quantity=".concat(quantity);
       }
-      
 
       // Add to cart
       $.post(shopifyAjaxAddURL, serializedForm, function (itemData) {
         theme.createCookie('theme_added_to_cart', 'justnow', 1);
+
         // Update persistent cart summaries
         // enable add button
         $btns.each(function () {
           var $btn = $(this);
-          setTimeout(function () {
+          setTimeout(() => {
             $btn.addClass('product-add--added').removeAttr('disabled');
 
-            setTimeout(function () {
+            setTimeout(() => {
               $btn.removeClass('product-add--added').removeClass('product-add--adding');
             }, 2000);
           }, 500);
@@ -3448,9 +3437,9 @@ function _get(target, property, receiver) {if (typeof Reflect !== "undefined" &&
 
   theme.loadInPlaceQuantityAdjustment = function (container, itemData) {
     // handling both mini product forms and quantity updaters (inc in cart)
-    if ($('.qty-adjuster:first', container).length && theme.settings.cartType.includes('drawer')) {var
+    if ($('.qty-adjuster:first', container).length && theme.settings.cartType.includes('drawer')) {
 
-      updateGridWithItemData = function updateGridWithItemData(data) {
+      function updateGridWithItemData(data) {
         $('.product-form--mini', container).addClass('product-form--temp-could-remove');
         for (var i = 0; i < data.items.length; i++) {
           var item = data.items[i],
@@ -3485,7 +3474,7 @@ function _get(target, property, receiver) {if (typeof Reflect !== "undefined" &&
           }
         }
         $('.product-form--temp-could-remove', container).removeClass('product-form--added product-form--temp-could-remove');
-      };
+      }
 
       if (itemData) {
         updateGridWithItemData(itemData);
@@ -3574,7 +3563,7 @@ function _get(target, property, receiver) {if (typeof Reflect !== "undefined" &&
         cartItemData = JSON.parse($('#LimitedCartJson').html());
 
         if (delayQtyAdjusterShow) {
-          setTimeout(function () {
+          setTimeout(() => {
             theme.loadInPlaceQuantityAdjustment($('body'), cartItemData);
           }, 800);
         } else {
@@ -3616,10 +3605,10 @@ function _get(target, property, receiver) {if (typeof Reflect !== "undefined" &&
 
   // Initialises Featured Collection(s) carousels
   theme.carousels = {
-    init: function init() {
-      var _this = _this11;
+    init: () => {
+      var _this = this;
 
-      _this.updateArrows = function (carousel) {
+      _this.updateArrows = (carousel) => {
         var section = $(carousel).closest('.section')[0];
 
         if (carousel.scrollLeft < 15) {
@@ -3636,9 +3625,9 @@ function _get(target, property, receiver) {if (typeof Reflect !== "undefined" &&
         }
       };
 
-      _this.initArrows = function () {
+      _this.initArrows = () => {
         var carousels = document.querySelectorAll(".cc-carousel");
-        carousels.forEach(function (carousel) {
+        carousels.forEach((carousel) => {
           var $sectionContainer = $(carousel).closest('.section');
           var $carouselNext = $sectionContainer.find('.cc-carousel--next');
           var $carouselPrevious = $sectionContainer.find('.cc-carousel--previous');
@@ -3665,7 +3654,7 @@ function _get(target, property, receiver) {if (typeof Reflect !== "undefined" &&
 
               carousel.classList.add('cc-carousel--smooth-scroll');
               carousel.scrollLeft = nextLeftOffset;
-              setTimeout(function () {
+              setTimeout(() => {
                 _this.updateArrows(carousel);
                 carousel.classList.remove('cc-carousel--smooth-scroll');
               }, 700);
@@ -3696,7 +3685,7 @@ function _get(target, property, receiver) {if (typeof Reflect !== "undefined" &&
               carousel.classList.add('cc-carousel--smooth-scroll');
               carousel.scrollLeft = nextLeftOffset;
 
-              setTimeout(function () {
+              setTimeout(() => {
                 _this.updateArrows(carousel);
                 carousel.classList.remove('cc-carousel--smooth-scroll');
               }, 700);
@@ -3707,10 +3696,10 @@ function _get(target, property, receiver) {if (typeof Reflect !== "undefined" &&
         });
       };
 
-      _this.initMobileCarousels = function () {
+      _this.initMobileCarousels = () => {
         if (theme.viewport.isXs()) {
           var uninitializedMobCarousels = document.querySelectorAll(".cc-carousel-mobile:not(.cc-carousel)");
-          uninitializedMobCarousels.forEach(function (carousel) {
+          uninitializedMobCarousels.forEach((carousel) => {
             carousel.classList.add('cc-carousel');
             var $sectionContainer = $(carousel).closest('.section');
             $sectionContainer.find('.cc-carousel--next').addClass('cc-initialized');
@@ -3722,7 +3711,7 @@ function _get(target, property, receiver) {if (typeof Reflect !== "undefined" &&
           _this.initArrows();
         } else {
           var initializedMobCarousels = document.querySelectorAll(".cc-carousel-mobile.cc-carousel");
-          initializedMobCarousels.forEach(function (carousel) {
+          initializedMobCarousels.forEach((carousel) => {
             carousel.classList.remove('cc-carousel');
             var $sectionContainer = $(carousel).closest('.section');
             $sectionContainer.find('.cc-carousel--next').removeClass('cc-initialized');
@@ -3732,34 +3721,34 @@ function _get(target, property, receiver) {if (typeof Reflect !== "undefined" &&
         }
       };
 
-      _this.initCarousels = function () {
+      _this.initCarousels = () => {
         var carousels = document.querySelectorAll(".cc-carousel");
 
         if (carousels.length) {
           //Init click to drag on desktop browsers (except for Safari)
           if (theme.viewport.isSm() && !theme.browser.isSafari()) {
-            carousels.forEach(function (carousel) {
+            carousels.forEach((carousel) => {
               var isDown = false,startX,scrollLeft;
 
               if (!carousel.classList.contains('cc-initialized')) {
                 carousel.classList.add('cc-initialized');
 
-                carousel.addEventListener("mousedown", function (e) {
+                carousel.addEventListener("mousedown", (e) => {
                   isDown = true;
                   startX = e.pageX - carousel.offsetLeft;
                   scrollLeft = carousel.scrollLeft;
                 });
 
-                carousel.addEventListener("mouseleave", function () {
+                carousel.addEventListener("mouseleave", () => {
                   isDown = false;
                 });
 
-                carousel.addEventListener("mouseup", function () {
+                carousel.addEventListener("mouseup", () => {
                   isDown = false;
                   _this.updateArrows(carousel);
                 });
 
-                carousel.addEventListener("mousemove", function (e) {
+                carousel.addEventListener("mousemove", (e) => {
                   if (!isDown) return;
                   e.preventDefault();
                   var x = e.pageX - carousel.offsetLeft;
@@ -3770,18 +3759,18 @@ function _get(target, property, receiver) {if (typeof Reflect !== "undefined" &&
               }
             });
           } else {
-            carousels.forEach(function (carousel) {
+            carousels.forEach((carousel) => {
               //Update arrows on touch end
-              carousel.addEventListener("touchend", function () {
+              carousel.addEventListener("touchend", () => {
                 _this.updateArrows(carousel);
               });
 
               //Update arrows on scroll end
               var timer;
-              carousel.addEventListener('scroll', function () {
+              carousel.addEventListener('scroll', () => {
                 clearTimeout(timer);
 
-                timer = setTimeout(function () {
+                timer = setTimeout(() => {
                   _this.updateArrows(carousel);
                 }, 300);
               }, { passive: true });
@@ -3800,10 +3789,10 @@ function _get(target, property, receiver) {if (typeof Reflect !== "undefined" &&
 
       _this.initCarousels();
     },
-    destroy: function destroy() {
+    destroy: () => {
       var carousels = document.querySelector(".cc-carousel");
       if (carousels && carousels.length) {
-        carousels.forEach(function (carousel) {
+        carousels.forEach((carousel) => {
           carousel.removeEventListener('mousedown').
           removeEventListener('mouseleave').
           removeEventListener('mouseup').
@@ -3981,8 +3970,8 @@ function _get(target, property, receiver) {if (typeof Reflect !== "undefined" &&
   });
   ;
   // Adjusts the css top property of an element such that it sticks appropriately based on the scroll direction
-  var StickyScrollDirectionInstance = /*#__PURE__*/function () {"use strict";
-    function StickyScrollDirectionInstance(container) {_classCallCheck(this, StickyScrollDirectionInstance);
+  class StickyScrollDirectionInstance {
+    constructor(container) {
       if (!container) {
         console.warn("No container provided to StickyScrollDirection component");
         return;
@@ -4000,64 +3989,64 @@ function _get(target, property, receiver) {if (typeof Reflect !== "undefined" &&
 
     /**
      * Bind listeners
-     */_createClass(StickyScrollDirectionInstance, [{ key: "bindEvents", value:
-      function bindEvents() {
-        this.scrollListener = this.handleScroll.bind(this);
-        this.updateTopListener = theme.debounce(this.updateDefaultTop.bind(this));
-        window.addEventListener('scroll', this.scrollListener);
-        window.addEventListener('cc-header-updated', this.updateTopListener);
-        window.addEventListener('resize', this.updateTopListener);
-      } }, { key: "updateDefaultTop", value:
+     */
+    bindEvents() {
+      this.scrollListener = this.handleScroll.bind(this);
+      this.updateTopListener = theme.debounce(this.updateDefaultTop.bind(this));
+      window.addEventListener('scroll', this.scrollListener);
+      window.addEventListener('cc-header-updated', this.updateTopListener);
+      window.addEventListener('resize', this.updateTopListener);
+    }
 
-      function updateDefaultTop() {
-        var $toolbar = $('.product-list-toolbar');
-        if ($toolbar) {
-          this.defaultTop = $toolbar.outerHeight() + 20;
-        } else {
-          this.defaultTop = 0;
-        }
-      } }, { key: "handleScroll", value:
+    updateDefaultTop() {
+      var $toolbar = $('.product-list-toolbar');
+      if ($toolbar) {
+        this.defaultTop = $toolbar.outerHeight() + 20;
+      } else {
+        this.defaultTop = 0;
+      }
+    }
 
-      function handleScroll() {
-        var bounds = this.container.getBoundingClientRect();
-        var maxTop = bounds.top + window.scrollY - this.container.offsetTop + this.defaultTop;
-        var minTop = this.container.clientHeight - window.innerHeight;
+    handleScroll() {
+      var bounds = this.container.getBoundingClientRect();
+      var maxTop = bounds.top + window.scrollY - this.container.offsetTop + this.defaultTop;
+      var minTop = this.container.clientHeight - window.innerHeight;
 
-        if (window.scrollY < this.scrollY) {
-          this.currentTop -= window.scrollY - this.scrollY;
-        } else {
-          this.currentTop += this.scrollY - window.scrollY;
-        }
-
-        this.currentTop = Math.min(Math.max(this.currentTop, -minTop), maxTop, this.defaultTop);
-        this.scrollY = window.scrollY;
-        this.container.style.top = this.currentTop + "px";
+      if (window.scrollY < this.scrollY) {
+        this.currentTop -= window.scrollY - this.scrollY;
+      } else {
+        this.currentTop += this.scrollY - window.scrollY;
       }
 
-      /**
-       * Destroy the listeners
-       */ }, { key: "destroy", value:
-      function destroy() {
-        window.removeEventListener('scroll', this.scrollListener);
-        window.removeEventListener('cc-header-updated', this.updateTopListener);
-        window.removeEventListener('resize', this.updateTopListener);
-      } }]);return StickyScrollDirectionInstance;}();var
+      this.currentTop = Math.min(Math.max(this.currentTop, -minTop), maxTop, this.defaultTop);
+      this.scrollY = window.scrollY;
+      this.container.style.top = this.currentTop + "px";
+    }
+
+    /**
+     * Destroy the listeners
+     */
+    destroy() {
+      window.removeEventListener('scroll', this.scrollListener);
+      window.removeEventListener('cc-header-updated', this.updateTopListener);
+      window.removeEventListener('resize', this.updateTopListener);
+    }}
 
 
-  StickyScrollDirection = /*#__PURE__*/function (_ccComponent3) {"use strict";_inherits(StickyScrollDirection, _ccComponent3);var _super3 = _createSuper(StickyScrollDirection);
-    function StickyScrollDirection() {var name = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 'sticky-scroll-direction';var cssSelector = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : ".cc-".concat(name, ":not(.cc-initialized)");_classCallCheck(this, StickyScrollDirection);return _super3.call(this,
-      name, cssSelector);
-    }_createClass(StickyScrollDirection, [{ key: "init", value:
+  class StickyScrollDirection extends ccComponent {
+    constructor() {var name = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 'sticky-scroll-direction';var cssSelector = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : ".cc-".concat(name, ":not(.cc-initialized)");
+      super(name, cssSelector);
+    }
 
-      function init(container) {
-        _get(_getPrototypeOf(StickyScrollDirection.prototype), "init", this).call(this, container);
-        this.registerInstance(container, new StickyScrollDirectionInstance(container));
-      } }, { key: "destroy", value:
+    init(container) {
+      super.init(container);
+      this.registerInstance(container, new StickyScrollDirectionInstance(container));
+    }
 
-      function destroy(container) {
-        this.destroyInstance(container);
-        _get(_getPrototypeOf(StickyScrollDirection.prototype), "destroy", this).call(this, container);
-      } }]);return StickyScrollDirection;}(ccComponent);
+    destroy(container) {
+      this.destroyInstance(container);
+      super.destroy(container);
+    }}
 
 
   new StickyScrollDirection();
@@ -4102,9 +4091,9 @@ function _get(target, property, receiver) {if (typeof Reflect !== "undefined" &&
       //Handle clear cart
       $(container).on('click', '.btn--empty-cart', function () {
         if (confirm(theme.strings.confirmEmptyCart)) {
-          $(container).find('.cart-summary-item-container').each(function (index) {var _this12 = this;
-            setTimeout(function () {
-              $(_this12).addClass('cart-summary-item-container--out');
+          $(container).find('.cart-summary-item-container').each(function (index) {
+            setTimeout(() => {
+              $(this).addClass('cart-summary-item-container--out');
             }, index * 50);
           });
 
@@ -4436,7 +4425,7 @@ function _get(target, property, receiver) {if (typeof Reflect !== "undefined" &&
         }
 
         var queryVals = [];
-        this.$container[0].querySelectorAll('[data-filter-form] input, [data-filter-form] select').forEach(function (input) {
+        this.$container[0].querySelectorAll('[data-filter-form] input, [data-filter-form] select').forEach((input) => {
           if (
           (input.type !== 'checkbox' && input.type !== 'radio' || input.checked // is an active input value
           ) && input.value !== '' // has a value
@@ -4450,7 +4439,7 @@ function _get(target, property, receiver) {if (typeof Reflect !== "undefined" &&
           }
         });
 
-        this.$container[0].querySelectorAll('[data-filter-form] [data-current-value]').forEach(function (input) {
+        this.$container[0].querySelectorAll('[data-filter-form] [data-current-value]').forEach((input) => {
           input.setAttribute('value', input.dataset.currentValue);
         });
         var data = new FormData(evt.currentTarget);
@@ -4494,7 +4483,8 @@ function _get(target, property, receiver) {if (typeof Reflect !== "undefined" &&
         }
 
         // start fetching URL
-        var refreshContainerSelector = '[data-ajax-container],.product-list-toolbar',
+        var refreshContainerSelector = '[data-ajax-container]',
+        $toolbar = this.$container.find('.product-list-toolbar'),
         $ajaxContainers = this.$container.find(refreshContainerSelector);
 
         // loading state
@@ -4519,36 +4509,37 @@ function _get(target, property, receiver) {if (typeof Reflect !== "undefined" &&
           }
 
           // replace contents
-          var $newAjaxContainers = $("<div>".concat(data, "</div>")).find(refreshContainerSelector);
+          $("<div>".concat(data, "</div>")).find(refreshContainerSelector).each(function (index) {
+            var $newAjaxContainer = $(this);
 
-          if ($newAjaxContainers.length === 1) {
-            //No results
-            $($ajaxContainers[0]).hide();
-            $($ajaxContainers[1]).html($newAjaxContainers.html());
-          } else {
-            $($ajaxContainers[0]).show();
-            $newAjaxContainers.each(function (index) {
-              var $newAjaxContainer = $(this);
-
-              // preserve accordion state
-              $($ajaxContainers[index]).find('.cc-accordion-item').each(function () {
-                var accordionIndex = $(this).closest('.cc-accordion').index();
-                if ($(this).hasClass('is-open')) {
-                  $newAjaxContainer.find(".cc-accordion:nth-child(".concat(accordionIndex + 1, ") .cc-accordion-item")).addClass('is-open').attr('open', '');
-                } else {
-                  $newAjaxContainer.find(".cc-accordion:nth-child(".concat(accordionIndex + 1, ") .cc-accordion-item")).removeClass('is-open').removeAttr('open');
-                }
-              });
-
-              // maintain mobile filter menu state
-              if ($('.cc-product-filter', _this.$container).length && $('.cc-product-filter', _this.$container).hasClass('-in')) {
-                $newAjaxContainer.find('.cc-product-filter').addClass('-in');
+            // preserve accordion state
+            $($ajaxContainers[index]).find('.cc-accordion-item').each(function () {
+              var accordionIndex = $(this).closest('.cc-accordion').index();
+              if ($(this).hasClass('is-open')) {
+                $newAjaxContainer.find(".cc-accordion:nth-child(".concat(accordionIndex + 1, ") .cc-accordion-item")).addClass('is-open').attr('open', '');
+              } else {
+                $newAjaxContainer.find(".cc-accordion:nth-child(".concat(accordionIndex + 1, ") .cc-accordion-item")).removeClass('is-open').removeAttr('open');
               }
-
-              $($ajaxContainers[index]).html($newAjaxContainer.html());
-              _this.functions.refreshSelects();
             });
+
+            // maintain mobile filter menu state
+            if ($('.cc-product-filter', _this.$container).length && $('.cc-product-filter', _this.$container).hasClass('-in')) {
+              $newAjaxContainer.find('.cc-product-filter').addClass('-in');
+            }
+
+            $($ajaxContainers[index]).html($newAjaxContainer.html());
+          });
+
+          // Update the visibility of the toolbar
+          if ($toolbar) {
+            if ($("<div>".concat(data, "</div>")).find('.product-list-toolbar').length === 0) {
+              $toolbar.hide();
+            } else {
+              $toolbar.show();
+            }
           }
+
+          _this.functions.refreshSelects();
 
           // init js
           this.functions.initFilterResults.call(this);
@@ -4708,7 +4699,7 @@ function _get(target, property, receiver) {if (typeof Reflect !== "undefined" &&
         };
         moveLocalisationHeader();
 
-        window.matchMedia('(min-width: 768px)').addEventListener('change', function (event) {
+        window.matchMedia('(min-width: 768px)').addEventListener('change', (event) => {
           if (event.matches) {
             moveLocalisationHeader();
           } else {
@@ -4727,159 +4718,159 @@ function _get(target, property, receiver) {if (typeof Reflect !== "undefined" &&
       }
 
       // things for the standard nav
-      if ($('.main-nav', target).length) {var
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        doNavResizeEvents = function doNavResizeEvents() {
+      if ($('.main-nav', target).length) {
+
+        $('.main-nav .sub-nav-item.has-dropdown > a', target).on('keypress', function (e) {
+          if (e.keyCode === 32) {
+            toggleSubNav.call(this);
+          }
+          e.preventDefault();
+        });
+
+        // always follow links
+        $('.main-nav', target).on('click', '.sub-nav-item.has-dropdown > a', function () {
+          // Sub sub nav
+          toggleSubNav.call(this);
+          return false;
+
+        }).filter('[data-col-limit]').each(function () {
+          // Ensure no columns go over the per-column quota
+          var perCol = $(this).data('col-limit');
+          if (perCol > 0) {
+            $('.nav-item.dropdown.drop-norm > .sub-nav', this).each(function () {
+              var $items = $(this).find('.sub-nav-list:not(.sub-nav-image) > .sub-nav-item');
+              var cols = Math.ceil($items.length / perCol);
+              for (var i = 1; i < cols; i++) {
+                var $list = $('<ul class="sub-nav-list"/>').append($items.slice(perCol * i)).insertAfter($(this).find('.sub-nav-list:not(.sub-nav-image):last'));
+              }
+            });
+          }
+        });
+
+        // hover events
+
+        var navHoverDelay = 250;
+        var $navLastOpenDropdown = $();
+        var navOpenTimeoutId = -1;
+        var $container = $(target);
+
+        $('.main-nav', target).on('mouseenter mouseleave', '.nav-item.dropdown', function (evt) {
+          var $dropdownContainer = $(evt.currentTarget);
+          // delay on hover-out
+          if (evt.type == 'mouseenter') {
+            clearTimeout(navOpenTimeoutId);
+            clearTimeout($dropdownContainer.data('navCloseTimeoutId'));
+            var $openSiblings = $dropdownContainer.siblings('.open');
+
+            // close all menus but last opened
+            $openSiblings.not($navLastOpenDropdown).removeClass('open');
+            $navLastOpenDropdown = $dropdownContainer;
+
+            // show after a delay, based on first-open or not
+            var timeoutDelay = $openSiblings.length == 0 ? 0 : navHoverDelay;
+
+            // open it
+            var newNavOpenTimeoutId = setTimeout(function () {
+              $dropdownContainer.addClass('open').
+              siblings('.open').
+              removeClass('open');
+              // look for a non-mega dropdown
+              var $dropdown = $dropdownContainer.filter('.drop-norm').children('.sub-nav');
+              if ($dropdown.length) {
+                var transform = '',
+                rightEdge = $('#page-wrap').width() - 30;
+                // centre-aligned menus
+                if ($dropdownContainer.closest('.align-center').length) {
+                  // check if left-edge is too far left
+                  var leftOfDropdown = $dropdownContainer.offset().left + $dropdownContainer.outerWidth() / 2 - $dropdown.outerWidth() / 2;
+                  var leftEdge = 30;
+                  var leftOutsideAmount = leftOfDropdown - leftEdge;
+                  if (leftOutsideAmount < 0) {
+                    transform = 'translateX(calc(50% + ' + Math.round(Math.abs(leftOutsideAmount)) + 'px))';
+                  } else {
+                    // check if right-edge is too far right
+                    var rightOfDropdown = $dropdownContainer.offset().left + $dropdownContainer.outerWidth() / 2 + $dropdown.outerWidth() / 2;
+                    var rightOusideAmount = rightOfDropdown - rightEdge;
+                    if (rightOusideAmount > 0) {
+                      transform = 'translateX(calc(50% - ' + Math.round(rightOusideAmount) + 'px))';
+                    }
+                  }
+                } else {
+                  // left-aligned menus - check if right-edge is too far right
+                  var rightOfDropdown = $dropdownContainer.offset().left + $dropdown.outerWidth();
+                  var rightOusideAmount = rightOfDropdown - rightEdge;
+                  if (rightOusideAmount > 0) {
+                    transform = 'translateX(-' + Math.round(rightOusideAmount) + 'px)';
+                  }
+                }
+                $dropdown.css('transform', transform);
+              }
+            }, timeoutDelay);
+
+            navOpenTimeoutId = newNavOpenTimeoutId;
+            $dropdownContainer.data('navOpenTimeoutId', newNavOpenTimeoutId);
+          } else {
+            // cancel opening, close after delay, and clear transforms
+            clearTimeout($dropdownContainer.data('navOpenTimeoutId'));
+            $dropdownContainer.data('navCloseTimeoutId', setTimeout(function () {
+              $dropdownContainer.removeClass('open').children('.sub-nav').css('transform', '');
+            }, navHoverDelay));
+          }
+          // a11y
+          $dropdownContainer.children('[aria-expanded]').attr('aria-expanded', evt.type == 'mouseenter');
+        });
+
+        // touch events
+        $('.main-nav', target).on('touchstart touchend click', '.nav-item.dropdown > .nav-item-link', function (evt) {
+          if (evt.type == 'touchstart') {
+            $(this).data('touchstartedAt', evt.timeStamp);
+          } else if (evt.type == 'touchend') {
+            // down & up in under a second - presume tap
+            if (evt.timeStamp - $(this).data('touchstartedAt') < 1000) {
+              $(this).data('touchOpenTriggeredAt', evt.timeStamp);
+              if ($(this).parent().hasClass('open')) {
+                // trigger close
+                $(this).parent().trigger('mouseleave');
+              } else {
+                // trigger close on any open items
+                $('.nav-item.open').trigger('mouseleave');
+                // trigger open
+                $(this).parent().trigger('mouseenter');
+              }
+              // prevent fake click
+              return false;
+            }
+          } else if (evt.type == 'click') {
+            // if touch open was triggered very recently, prevent click event
+            if ($(this).data('touchOpenTriggeredAt') && evt.timeStamp - $(this).data('touchOpenTriggeredAt') < 1000) {
+              return false;
+            }
+          }
+        });
+
+        // keyboard events
+        $('.main-nav', target).on('keydown', '.nav-item.dropdown > .nav-item-link', function (evt) {
+          // space on parent link - toggle dropdown
+          if (evt.which == 32) {
+            var $parent = $(evt.target).parent();
+            $parent.trigger($parent.hasClass('open') ? 'mouseleave' : 'mouseenter');
+            return false;
+          }
+        });
+
+        var $logoSpacer = $('#logo-spacer', target);
+        var $logo = $('.logo-item', target);
+        function doNavResizeEvents() {
           // Keep the logo spacer width equal to the width of the logo
           if ($logoSpacer.length && $logo.length) {
             $logoSpacer.css('width', $logo.outerWidth());
           }
-        };var
+        }
+
+        $(window).on('debouncedresize.headerSection doNavResizeEvents.headerSection', doNavResizeEvents).trigger('doNavResizeEvents');
 
 
-
-
-        ensureDropdownPosition = function ensureDropdownPosition() {
+        function ensureDropdownPosition() {
           setTimeout(function () {
             var pw = $('.main-nav').width() + $('.main-nav').offset().left;
             $('.main-nav .nav-item.drop-norm .sub-nav').css('transform', '').each(function () {
@@ -4896,103 +4887,103 @@ function _get(target, property, receiver) {if (typeof Reflect !== "undefined" &&
               $(this).css({ visibility: '', zIndex: '', display: '' });
             });
           }, 50);
-        };
+        }
 
         // Ensuring sub nav dropdown does not go off the RHS of page
-        $('.main-nav .sub-nav-item.has-dropdown > a', target).on('keypress', function (e) {if (e.keyCode === 32) {toggleSubNav.call(this);}e.preventDefault();}); // always follow links
-        $('.main-nav', target).on('click', '.sub-nav-item.has-dropdown > a', function () {// Sub sub nav
-          toggleSubNav.call(this);return false;}).filter('[data-col-limit]').each(function () {// Ensure no columns go over the per-column quota
-          var perCol = $(this).data('col-limit');if (perCol > 0) {$('.nav-item.dropdown.drop-norm > .sub-nav', this).each(function () {var $items = $(this).find('.sub-nav-list:not(.sub-nav-image) > .sub-nav-item');var cols = Math.ceil($items.length / perCol);for (var i = 1; i < cols; i++) {var $list = $('<ul class="sub-nav-list"/>').append($items.slice(perCol * i)).insertAfter($(this).find('.sub-nav-list:not(.sub-nav-image):last'));}});}}); // hover events
-        var navHoverDelay = 250;var $navLastOpenDropdown = $();var navOpenTimeoutId = -1;var $container = $(target);$('.main-nav', target).on('mouseenter mouseleave', '.nav-item.dropdown', function (evt) {var $dropdownContainer = $(evt.currentTarget); // delay on hover-out
-          if (evt.type == 'mouseenter') {clearTimeout(navOpenTimeoutId);clearTimeout($dropdownContainer.data('navCloseTimeoutId'));var $openSiblings = $dropdownContainer.siblings('.open'); // close all menus but last opened
-            $openSiblings.not($navLastOpenDropdown).removeClass('open');$navLastOpenDropdown = $dropdownContainer; // show after a delay, based on first-open or not
-            var timeoutDelay = $openSiblings.length == 0 ? 0 : navHoverDelay; // open it
-            var newNavOpenTimeoutId = setTimeout(function () {$dropdownContainer.addClass('open').siblings('.open').removeClass('open'); // look for a non-mega dropdown
-              var $dropdown = $dropdownContainer.filter('.drop-norm').children('.sub-nav');if ($dropdown.length) {var transform = '',rightEdge = $('#page-wrap').width() - 30; // centre-aligned menus
-                if ($dropdownContainer.closest('.align-center').length) {// check if left-edge is too far left
-                  var leftOfDropdown = $dropdownContainer.offset().left + $dropdownContainer.outerWidth() / 2 - $dropdown.outerWidth() / 2;var leftEdge = 30;var leftOutsideAmount = leftOfDropdown - leftEdge;if (leftOutsideAmount < 0) {transform = 'translateX(calc(50% + ' + Math.round(Math.abs(leftOutsideAmount)) + 'px))';} else {// check if right-edge is too far right
-                    var rightOfDropdown = $dropdownContainer.offset().left + $dropdownContainer.outerWidth() / 2 + $dropdown.outerWidth() / 2;var rightOusideAmount = rightOfDropdown - rightEdge;if (rightOusideAmount > 0) {transform = 'translateX(calc(50% - ' + Math.round(rightOusideAmount) + 'px))';}}} else {// left-aligned menus - check if right-edge is too far right
-                  var rightOfDropdown = $dropdownContainer.offset().left + $dropdown.outerWidth();var rightOusideAmount = rightOfDropdown - rightEdge;if (rightOusideAmount > 0) {transform = 'translateX(-' + Math.round(rightOusideAmount) + 'px)';}}$dropdown.css('transform', transform);}}, timeoutDelay);navOpenTimeoutId = newNavOpenTimeoutId;$dropdownContainer.data('navOpenTimeoutId', newNavOpenTimeoutId);} else {// cancel opening, close after delay, and clear transforms
-            clearTimeout($dropdownContainer.data('navOpenTimeoutId'));$dropdownContainer.data('navCloseTimeoutId', setTimeout(function () {$dropdownContainer.removeClass('open').children('.sub-nav').css('transform', '');}, navHoverDelay));} // a11y
-          $dropdownContainer.children('[aria-expanded]').attr('aria-expanded', evt.type == 'mouseenter');}); // touch events
-        $('.main-nav', target).on('touchstart touchend click', '.nav-item.dropdown > .nav-item-link', function (evt) {if (evt.type == 'touchstart') {$(this).data('touchstartedAt', evt.timeStamp);} else if (evt.type == 'touchend') {// down & up in under a second - presume tap
-            if (evt.timeStamp - $(this).data('touchstartedAt') < 1000) {$(this).data('touchOpenTriggeredAt', evt.timeStamp);if ($(this).parent().hasClass('open')) {// trigger close
-                $(this).parent().trigger('mouseleave');} else {// trigger close on any open items
-                $('.nav-item.open').trigger('mouseleave'); // trigger open
-                $(this).parent().trigger('mouseenter');} // prevent fake click
-              return false;}} else if (evt.type == 'click') {// if touch open was triggered very recently, prevent click event
-            if ($(this).data('touchOpenTriggeredAt') && evt.timeStamp - $(this).data('touchOpenTriggeredAt') < 1000) {return false;}}}); // keyboard events
-        $('.main-nav', target).on('keydown', '.nav-item.dropdown > .nav-item-link', function (evt) {// space on parent link - toggle dropdown
-          if (evt.which == 32) {var $parent = $(evt.target).parent();$parent.trigger($parent.hasClass('open') ? 'mouseleave' : 'mouseenter');return false;}});var $logoSpacer = $('#logo-spacer', target);var $logo = $('.logo-item', target);$(window).on('debouncedresize.headerSection doNavResizeEvents.headerSection', doNavResizeEvents).trigger('doNavResizeEvents');$(window).on('debouncedresize.headerSection ensuredropdownposition.headerSection', ensureDropdownPosition).trigger('ensuredropdownposition');$(function () {ensureDropdownPosition();});} /// Style any dropdowns
-      $('select:not([name=id])', target).selectReplace();$('.disclosure', target).add('#mobile-nav .disclosure').each(function () {$(this).data('disclosure', new theme.Disclosure($(this)));}); /// Predictive search
-      var $liveSearchContainer = $('.main-search[data-live-search="true"]', target);var $liveSearchForm = $liveSearchContainer.find('form');var $searchPopupContainer = $liveSearchContainer.find('.main_search__popup');var $searchResultsContainer = $liveSearchContainer.find('.main-search__results');var $footerButtons = $searchPopupContainer.find('.main-search__footer-buttons');var $allResultsContainer = $searchPopupContainer.find('.all-results-container');if ($liveSearchContainer.length) {var
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        doPredictiveSearch = function doPredictiveSearch() {
+        $(window).on('debouncedresize.headerSection ensuredropdownposition.headerSection', ensureDropdownPosition).trigger('ensuredropdownposition');
+        $(function () {
+          ensureDropdownPosition();
+        });
+      }
+
+      /// Style any dropdowns
+      $('select:not([name=id])', target).selectReplace();
+
+      $('.disclosure', target).add('#mobile-nav .disclosure').each(function () {
+        $(this).data('disclosure', new theme.Disclosure($(this)));
+      });
+
+      /// Predictive search
+      var $liveSearchContainer = $('.main-search[data-live-search="true"]', target);
+      var $liveSearchForm = $liveSearchContainer.find('form');
+      var $searchPopupContainer = $liveSearchContainer.find('.main_search__popup');
+      var $searchResultsContainer = $liveSearchContainer.find('.main-search__results');
+      var $footerButtons = $searchPopupContainer.find('.main-search__footer-buttons');
+      var $allResultsContainer = $searchPopupContainer.find('.all-results-container');
+
+      if ($liveSearchContainer.length) {
+        var searchTermCookieName = 'theme_quick_search_term';
+        var searchTypeCookieName = 'theme_quick_search_type';
+
+        var $searchInput = $('.main-search__input', target);
+        if (typeof theme.readCookie(searchTermCookieName) != 'undefined') {
+          $searchInput.val(theme.readCookie(searchTermCookieName));
+        }
+
+        var $searchType = $('.main-search__product-types', target);
+        if ($searchType.length > 0) {
+          if (typeof theme.readCookie(searchTypeCookieName) != 'undefined') {
+            $searchType.val(theme.readCookie(searchTypeCookieName)).trigger('change');
+          }
+        }
+
+        var liveSearch = new function () {
+          return {
+            popup: {
+              show: function show() {var forceShow = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : false;var forceSearch = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : false;var doSearch = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : true;
+                if ($searchResultsContainer.html().length > 0 || forceShow === true || forceSearch === true || $searchInput.val().length >= 3) {
+
+                  if (($searchResultsContainer.html().length === 0 || forceSearch === true) && doSearch === true) {
+                    //There are at least 3 chars in the search box, but the search hasn't run yet
+                    doPredictiveSearch.call($searchInput);
+                  }
+
+                  $liveSearchContainer.addClass('main-search--show-popup');
+                }
+                $searchPopupContainer.attr('aria-expanded', true);
+              },
+
+              hide: () => {
+                $liveSearchContainer.removeClass('main-search--show-popup');
+                $searchPopupContainer.attr('aria-expanded', false);
+              } },
+
+            hiddenSearch: {
+              hide: () => {
+                var $hiddenContainer = $liveSearchContainer.closest('.hidden-search-container');
+                if ($hiddenContainer.length > 0) {
+                  $hiddenContainer.removeClass('hidden-search-container--open');
+                  $('body').removeClass('hidden-search-container--open');
+                }
+              } } };
+
+
+        }();
+
+        var searchTimeoutThrottle = 500,
+        searchTimeoutID = -1,
+        currReqObj = null,
+        showPrice = $liveSearchContainer.data('live-search-price'),
+        showVendor = $liveSearchContainer.data('live-search-vendor'),
+        includeMeta = $liveSearchContainer.data('live-search-meta'),
+        showSoldOutLabel = $liveSearchContainer.data('show-sold-out-label'),
+        showSaleLabel = $liveSearchContainer.data('show-sale-label'),
+        previousSearchStr = null;
+
+        $(target).on('keyup.headerSection change.headerSection', '.main-search__input:visible', function () {
+          if ($(this).closest('.hidden-search-container--mob-only').length) {
+            if (theme.viewport.isXs()) {
+              doPredictiveSearch.call(this);
+            }
+          } else {
+            if (previousSearchStr !== $(this).val()) {
+              doPredictiveSearch.call(this);
+              previousSearchStr = $(this).val();
+            }
+          }
+        });
+
+        function doPredictiveSearch() {
           var $searchContainer = $(this).closest('.main-search'),
           $resultsBox = $searchContainer.find('.main-search__results'),
           $productType = $searchContainer.find('.main-search__product-types:visible'),
@@ -5191,7 +5182,7 @@ function _get(target, property, receiver) {if (typeof Reflect !== "undefined" &&
 
             // Clear results
             liveSearch.popup.hide();
-            setTimeout(function () {
+            setTimeout(() => {
               $searchPopupContainer.css('height', 'auto');
               $searchContainer.removeClass('main-search--has-results main-search--results-on-multiple-lines main-search--loading');
               $resultsBox.empty();
@@ -5199,8 +5190,8 @@ function _get(target, property, receiver) {if (typeof Reflect !== "undefined" &&
               $footerButtons.hide();
             }, 50);
           }
-        };var searchTermCookieName = 'theme_quick_search_term';var searchTypeCookieName = 'theme_quick_search_type';var $searchInput = $('.main-search__input', target);if (typeof theme.readCookie(searchTermCookieName) != 'undefined') {$searchInput.val(theme.readCookie(searchTermCookieName));}var $searchType = $('.main-search__product-types', target);if ($searchType.length > 0) {if (typeof theme.readCookie(searchTypeCookieName) != 'undefined') {$searchType.val(theme.readCookie(searchTypeCookieName)).trigger('change');}}var liveSearch = new function () {return { popup: { show: function show() {var forceShow = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : false;var forceSearch = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : false;var doSearch = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : true;if ($searchResultsContainer.html().length > 0 || forceShow === true || forceSearch === true || $searchInput.val().length >= 3) {if (($searchResultsContainer.html().length === 0 || forceSearch === true) && doSearch === true) {//There are at least 3 chars in the search box, but the search hasn't run yet
-                    doPredictiveSearch.call($searchInput);}$liveSearchContainer.addClass('main-search--show-popup');}$searchPopupContainer.attr('aria-expanded', true);}, hide: function hide() {$liveSearchContainer.removeClass('main-search--show-popup');$searchPopupContainer.attr('aria-expanded', false);} }, hiddenSearch: { hide: function hide() {var $hiddenContainer = $liveSearchContainer.closest('.hidden-search-container');if ($hiddenContainer.length > 0) {$hiddenContainer.removeClass('hidden-search-container--open');$('body').removeClass('hidden-search-container--open');}} } };}();var searchTimeoutThrottle = 500,searchTimeoutID = -1,currReqObj = null,showPrice = $liveSearchContainer.data('live-search-price'),showVendor = $liveSearchContainer.data('live-search-vendor'),includeMeta = $liveSearchContainer.data('live-search-meta'),showSoldOutLabel = $liveSearchContainer.data('show-sold-out-label'),showSaleLabel = $liveSearchContainer.data('show-sale-label'),previousSearchStr = null;$(target).on('keyup.headerSection change.headerSection', '.main-search__input:visible', function () {if ($(this).closest('.hidden-search-container--mob-only').length) {if (theme.viewport.isXs()) {doPredictiveSearch.call(this);}} else {if (previousSearchStr !== $(this).val()) {doPredictiveSearch.call(this);previousSearchStr = $(this).val();}}});
+        }
+
         $(target).on('click.headerSection', '.main-search__input', liveSearch.popup.show);
         $(target).on('focus.headerSection', '.main-search__input', function () {
           liveSearch.popup.show();
@@ -5220,33 +5211,33 @@ function _get(target, property, receiver) {if (typeof Reflect !== "undefined" &&
 
         var $hiddenSearchContainer = $('.hidden-search-container', target);
         var $searchForm = $('.hidden-search-container .main-search', target);
-        if ($hiddenSearchContainer.length) {var
+        if ($hiddenSearchContainer.length) {
+          var $toolbarContainer = $('#toolbar', target).closest('.container');
 
+          $(target).on('click.headerSection', '[data-show-search-form]', function () {
+            if ($hiddenSearchContainer.find('.main-search').length) {
+              $hiddenSearchContainer.addClass('hidden-search-container--open');
+              $('body').addClass('hidden-search-container--open');
+            } else {
+              $toolbarContainer.find('.main-search').slideToggle(200).toggleClass('-in');
+            }
+            return false;
+          });
 
-
-
-
-
-
-
-
-
-
-
-          moveSearchContainer = function moveSearchContainer() {
+          function moveSearchContainer() {
             if (theme.viewport.isXs() && $('.hidden-search-container .main-search', target).length > 0) {
               $toolbarContainer.append($searchForm.addClass('main-search--revealable'));
             } else if (theme.viewport.isSm() && $('.hidden-search-container .main-search', target).length === 0) {
               $hiddenSearchContainer.append($searchForm.removeClass('main-search--revealable').css('display', ''));
             }
-          };var $toolbarContainer = $('#toolbar', target).closest('.container');$(target).on('click.headerSection', '[data-show-search-form]', function () {if ($hiddenSearchContainer.find('.main-search').length) {$hiddenSearchContainer.addClass('hidden-search-container--open');$('body').addClass('hidden-search-container--open');} else {$toolbarContainer.find('.main-search').slideToggle(200).toggleClass('-in');}return false;});
+          }
 
           $(window).on('debouncedresize.headerSection', moveSearchContainer);
           moveSearchContainer();
         }
 
         //Esc pressed
-        $(target).on('keyup.headerSection', function (evt) {
+        $(target).on('keyup.headerSection', (evt) => {
           if (evt.which === 27) {
             liveSearch.popup.hide();
             liveSearch.hiddenSearch.hide();
@@ -5254,7 +5245,7 @@ function _get(target, property, receiver) {if (typeof Reflect !== "undefined" &&
         });
 
         //If somewhere other than the popup is clicked
-        $('body').on('click.headerSection', function (evt) {
+        $('body').on('click.headerSection', (evt) => {
           if ($liveSearchForm.has(evt.target).length === 0) {
             liveSearch.popup.hide();
             liveSearch.hiddenSearch.hide();
@@ -5310,8 +5301,8 @@ function _get(target, property, receiver) {if (typeof Reflect !== "undefined" &&
       // Keep the spacer width equal to the width of the localization dropdowns/socials
       var $spacers = $('.announcement-bar__spacer', target);
 
-      if ($spacers.length > 1) {var
-        doAnnouncementBarResizeEvents = function doAnnouncementBarResizeEvents() {
+      if ($spacers.length > 1) {
+        function doAnnouncementBarResizeEvents() {
           var maxWidth = 0;
 
           $spacers.each(function () {
@@ -5321,7 +5312,7 @@ function _get(target, property, receiver) {if (typeof Reflect !== "undefined" &&
           });
 
           $spacers.width(parseInt(maxWidth));
-        };
+        }
 
         $(window).on('debouncedresize.announcementBarSection', doAnnouncementBarResizeEvents);
         doAnnouncementBarResizeEvents();
@@ -5389,8 +5380,8 @@ function _get(target, property, receiver) {if (typeof Reflect !== "undefined" &&
       });
 
       /// Check that tags fit in one line
-      if ($('.page-title.opposing-items .tags', target).length > 0) {var
-        checkTagWidths = function checkTagWidths() {
+      if ($('.page-title.opposing-items .tags', target).length > 0) {
+        function checkTagWidths() {
           var $cont = $('.page-title.opposing-items');
           var $title = $cont.children('.left');
           var $tags = $cont.children('.tags');
@@ -5405,7 +5396,7 @@ function _get(target, property, receiver) {if (typeof Reflect !== "undefined" &&
           } else {
             $cont.find('.more-link').remove();
           }
-        };
+        }
         $(window).on('debouncedresize.checktagswidth checktagswidth.checktagswidth', checkTagWidths).trigger('checktagswidth');
         $(function () {
           checkTagWidths();
@@ -5988,8 +5979,8 @@ function _get(target, property, receiver) {if (typeof Reflect !== "undefined" &&
 
       //Preload the zoom image
       var imgPreload = new Image();
-      imgPreload.onload = function () {
-        setTimeout(function () {
+      imgPreload.onload = () => {
+        setTimeout(() => {
           $gallery.addClass('gallery-loaded');
         }, 0);
       };
@@ -6088,7 +6079,7 @@ function _get(target, property, receiver) {if (typeof Reflect !== "undefined" &&
   //Register dynamically pulled in sections
   $(function ($) {
     if (cc.sections.length) {
-      cc.sections.forEach(function (section) {
+      cc.sections.forEach((section) => {
         try {
           var data = {};
           if (typeof section.deferredLoad !== 'undefined') {
@@ -6108,4 +6099,4 @@ function _get(target, property, receiver) {if (typeof Reflect !== "undefined" &&
   });
 
 })(theme.jQuery);  
-/* Built with Barry v1.0.7 */
+/* Built with Barry v1.0.8 */

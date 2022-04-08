@@ -109,13 +109,11 @@
       {% if settings.prod_block_layout != "beside" %}
       <div class="themed-product-reviews">
         {% render 'rating', rating_value: product.metafields.reviews.rating.value %}
-        
-        <!-- code changed - am. conflict with Stamped reviews  -->
-        <!-- {% if product.metafields.reviews.rating_count != blank and product.metafields.reviews.rating_count > 0 %}
+        {% if product.metafields.reviews.rating_count != blank and product.metafields.reviews.rating_count > 0 %}
           <span class="cc-rating-custom-caption">
             {{ product.metafields.reviews.rating_count }} {{ 'products.product.reviews_link' | t: count: product.metafields.reviews.rating_count | downcase }}
           </span>
-        {% endif %} -->
+        {% endif %}
       </div>
       {% endif %}
 

@@ -317,7 +317,9 @@
             {%- when 'buy_buttons' -%}
               {% if product.available %}
                 {% if is_variant_picker == false %}
-                  <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}">
+                  <select name="id" style="display:none;">
+                    <option value="{{ product.selected_or_first_available_variant.id }}"></option>
+                  </select>
                 {% endif %}
                 <div class="payment-and-quantity
                         product-detail__gap-lg
@@ -950,6 +952,9 @@
           },
           {
             "type": "buy_buttons"
+          },
+          {
+            "type": "description"
           }
         ]
       }
