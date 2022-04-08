@@ -170,7 +170,7 @@
           "checkout_sticky_form": true,
           "show_additional_checkout_buttons": false,
           "enable_empty_cart": false,
-          "checkout_goes_to_cart": true,
+          "checkout_goes_to_cart": false,
           "cart_terms_page": "",
           "promo_products_show": false,
           "promo_products_heading": "You might like",
