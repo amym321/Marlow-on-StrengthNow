@@ -165,10 +165,10 @@
       "cart-drawer": {
         "type": "cart-drawer",
         "settings": {
-          "enable_cart_notes": true,
-          "show_tax_and_shipping": false,
+          "enable_cart_notes": false,
+          "show_tax_and_shipping": true,
           "checkout_sticky_form": true,
-          "show_additional_checkout_buttons": false,
+          "show_additional_checkout_buttons": true,
           "enable_empty_cart": false,
           "checkout_goes_to_cart": false,
           "cart_terms_page": "",
