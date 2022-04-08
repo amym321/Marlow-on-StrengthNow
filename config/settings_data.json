@@ -849,14 +849,21 @@
           "type": "cart-drawer",
           "settings": {
             "enable_cart_notes": false,
-            "show_tax_and_shipping": false,
+            "show_tax_and_shipping": true,
             "checkout_sticky_form": true,
             "show_additional_checkout_buttons": true,
-            "enable_empty_cart": true,
-            "checkout_goes_to_cart": true,
+            "enable_empty_cart": false,
+            "checkout_goes_to_cart": false,
+            "cart_terms_page": "",
             "promo_products_show": true,
+            "promo_products_heading": "You might like",
+            "promo_products_product_1": "the-marlow-tote",
+            "promo_products_product_2": "bundle-save",
             "cart_summary_image_show": true,
-            "cart_summary_use_tint": true
+            "cart_summary_use_tint": true,
+            "cart_summary_image_url": "shopify:\/\/collections\/shop-all",
+            "cart_summary_image_heading": "Spend over $30 and get free shipping!",
+            "cart_summary_image_subheading": "Shop Now"
           }
         },
         "popup": {
