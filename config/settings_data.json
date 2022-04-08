@@ -172,14 +172,14 @@
           "enable_empty_cart": false,
           "checkout_goes_to_cart": false,
           "cart_terms_page": "",
-          "promo_products_show": false,
+          "promo_products_show": true,
           "promo_products_heading": "You might like",
           "promo_products_product_1": "",
           "promo_products_product_2": "",
           "cart_summary_image_show": true,
           "cart_summary_use_tint": true,
-          "cart_summary_image_url": "",
-          "cart_summary_image_heading": "Promotion",
+          "cart_summary_image_url": "shopify:\/\/collections\/all",
+          "cart_summary_image_heading": "Spend over $30 and get free shipping!",
           "cart_summary_image_subheading": "Read more"
         }
       },
