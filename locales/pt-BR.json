@@ -14,9 +14,9 @@
       "selector_label": "Opções",
       "unavailable": "Indisponível",
       "adding_to_cart": "Adicionando",
-      "product_unavailable_html": "<p>Estamos sem estoque para este item.</p>",
+      "product_unavailable_html": "<p>Estamos sem estoque para este item.<\/p>",
       "added_to_cart": "Adicionado",
-      "unit_price_separator": " / ",
+      "unit_price_separator": " \/ ",
       "added_to_cart_btn": "Adicionado",
       "go_to_cart": "Ir ao carrinho",
       "backorder": "está em espera e será enviado assim que estiver de volta em estoque",
@@ -25,7 +25,7 @@
     },
     "general": {
       "include_taxes": "Taxas incluídas.",
-      "shipping_policy_html": "<a href=\"{{ link }}\">Frete</a> calculado no checkout",
+      "shipping_policy_html": "<a href=\"{{ link }}\">Frete<\/a> calculado no checkout",
       "full_details": "Mais detalhes",
       "quick_buy_added": "Adicionado",
       "from": "A partir de"
@@ -70,8 +70,8 @@
       "loading": "Calculando...",
       "heading": "Obtenha estimativas de envio",
       "country": "País",
-      "province": "Província/Estado",
-      "zip": "Código postal/CEP",
+      "province": "Província\/Estado",
+      "zip": "Código postal\/CEP",
       "multiple_rates": "Taxas de envio disponíveis, a partir de",
       "single_rate": "Existe uma taxa de envio disponível para",
       "no_rates": "Nós não enviamos para este destino.",
@@ -81,9 +81,9 @@
       "continue": "Voltar à loja",
       "quantity_too_high": "Você só pode ter {{ quantity }} no seu carrinho",
       "confirm_remove": "Tem certeza de que deseja remover este item?",
-      "taxes_included_and_shipping_policy_html": "Taxas incluídas. <a href=\"{{ link }}\">Frete</a> calculado no checkout.",
+      "taxes_included_and_shipping_policy_html": "Taxas incluídas. <a href=\"{{ link }}\">Frete<\/a> calculado no checkout.",
       "taxes_included_but_shipping_at_checkout": "Imposto incluído e frete calculado no checkout",
-      "taxes_and_shipping_policy_at_checkout_html": "Impostos e <a href=\"{{ link }}\">frete</a> calculados no checkout",
+      "taxes_and_shipping_policy_at_checkout_html": "Impostos e <a href=\"{{ link }}\">frete<\/a> calculados no checkout",
       "taxes_and_shipping_at_checkout": "Impostos e frete calculados no checkout",
       "remove": "Eliminar",
       "empty_title": "Seu carrinho está vazio no momento",
@@ -93,7 +93,7 @@
       "backorder": "O produto está em espera e será enviado assim que estiver de volta em estoque"
     },
     "terms": {
-      "agreement_html": "Eu concordo com os <a href=\"{{ terms_url }}\" target=\"_blank\">termos e política de reembolso</a>"
+      "agreement_html": "Eu concordo com os <a href=\"{{ terms_url }}\" target=\"_blank\">termos e política de reembolso<\/a>"
     }
   },
   "homepage": {
@@ -196,7 +196,7 @@
     "errors": {
       "address_error": "Não é possível localizar o endereço",
       "address_no_results": "Nenhum resultado para este endereço",
-      "address_query_limit_html": "Você excedeu a cota de uso da API do Google. Considere a atualização para um <a href=\"https://developers.google.com/maps/premium/usage-limits\">Plano Premium</a>.",
+      "address_query_limit_html": "Você excedeu a cota de uso da API do Google. Considere a atualização para um <a href=\"https:\/\/developers.google.com\/maps\/premium\/usage-limits\">Plano Premium<\/a>.",
       "auth_error": "Ocorreu um problema ao autenticar sua conta do Google Maps."
     }
   },
@@ -326,7 +326,7 @@
       "link": "Entre usando a senha",
       "label": "Entre usando a senha:",
       "button": "Entrar",
-      "admin_link_html": "Você é o(a) dono(a) da loja? <a href=\"/admin\">Entre aqui</a>"
+      "admin_link_html": "Você é o(a) dono(a) da loja? <a href=\"\/admin\">Entre aqui<\/a>"
     },
     "signup": {
       "success": "Nós lhe enviaremos um e-mail logo antes de lançar a loja!"
@@ -337,10 +337,10 @@
   },
   "store_availability": {
     "general": {
-      "pick_up_available_at_html": "Retirada disponível em <strong>{{ location_name }}</strong>",
+      "pick_up_available_at_html": "Retirada disponível em <strong>{{ location_name }}<\/strong>",
       "view_store_info": "Ver as informações da loja",
       "check_other_stores": "Verificar a disponibilidade em outras lojas",
-      "pick_up_unavailable_at_html": "Retirada em <strong>{{ location_name }}</strong> indisponível no momento",
+      "pick_up_unavailable_at_html": "Retirada em <strong>{{ location_name }}<\/strong> indisponível no momento",
       "miles": "mi",
       "kilometers": "km",
       "pick_up_available": "Retirada disponível",
@@ -382,8 +382,8 @@
       "address2": "Endereço 2",
       "city": "Cidade",
       "country": "País",
-      "province": "Província/Estado",
-      "zip": "Código postal/CEP",
+      "province": "Província\/Estado",
+      "zip": "Código postal\/CEP",
       "phone": "Telefone",
       "set_default": "Definir como endereço padrão",
       "update": "Atualizar endereço",
@@ -446,7 +446,7 @@
     "form": {
       "post_success": "Obrigado por entrar em contato conosco. Retornaremos o mais rápido possível.",
       "post_error": "Erro:",
-      "post_field_error_html": "<strong>{{ field }}</strong> {{ error }}",
+      "post_field_error_html": "<strong>{{ field }}<\/strong> {{ error }}",
       "name": "Nome",
       "email": "E-mail",
       "phone": "Número de telefone",

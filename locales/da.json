@@ -14,9 +14,9 @@
       "selector_label": "Muligheder",
       "unavailable": "Ikke Tilgængelig",
       "adding_to_cart": "Tilføjelse",
-      "product_unavailable_html": "<p>Vi har løbet tør for lager på denne vare.</p>",
+      "product_unavailable_html": "<p>Vi har løbet tør for lager på denne vare.<\/p>",
       "added_to_cart": "Lagt",
-      "unit_price_separator": " / ",
+      "unit_price_separator": " \/ ",
       "added_to_cart_btn": "Lagt",
       "go_to_cart": "Gå i Kurv",
       "backorder": "er på bestilling og sendes så snart den er tilbage på lager",
@@ -25,7 +25,7 @@
     },
     "general": {
       "include_taxes": "Inklusive moms.",
-      "shipping_policy_html": "<a href=\"{{ link }}\">Levering</a> beregnes ved betaling",
+      "shipping_policy_html": "<a href=\"{{ link }}\">Levering<\/a> beregnes ved betaling",
       "full_details": "Flere detaljer",
       "quick_buy_added": "Lagt",
       "from": "Fra"
@@ -81,9 +81,9 @@
       "continue": "Tilbage til butikken",
       "quantity_too_high": "Du kan kun have {{ quantity }} i din indkøbskurv",
       "confirm_remove": "Er du sikker på, at du vil fjerne denne vare?",
-      "taxes_included_and_shipping_policy_html": "Inklusive skat. <a href=\"{{ link }}\">Levering</a> beregnes ved betaling.",
+      "taxes_included_and_shipping_policy_html": "Inklusive skat. <a href=\"{{ link }}\">Levering<\/a> beregnes ved betaling.",
       "taxes_included_but_shipping_at_checkout": "Inklusive skat. Levering beregnes ved betaling",
-      "taxes_and_shipping_policy_at_checkout_html": "Skatter og <a href=\"{{ link }}\">levering</a> beregnes ved betaling",
+      "taxes_and_shipping_policy_at_checkout_html": "Skatter og <a href=\"{{ link }}\">levering<\/a> beregnes ved betaling",
       "taxes_and_shipping_at_checkout": "Skatter og levering beregnes ved betaling",
       "remove": "Fjern",
       "empty_title": "Din kurv er i øjeblikket tom",
@@ -93,7 +93,7 @@
       "backorder": "Produktet er på bestilling og sendes så snart den er tilbage på lager"
     },
     "terms": {
-      "agreement_html": "Jeg accepterer <a href=\"{{ terms_url }}\" target=\"_blank\">vilkårene og refusionspolitikken</a>"
+      "agreement_html": "Jeg accepterer <a href=\"{{ terms_url }}\" target=\"_blank\">vilkårene og refusionspolitikken<\/a>"
     }
   },
   "homepage": {
@@ -196,7 +196,7 @@
     "errors": {
       "address_error": "Der opstod en fejl ved at slå op på adressen",
       "address_no_results": "Ingen resultater for denne adresse",
-      "address_query_limit_html": "Du har overskredet brugsgrænse for Google API. Overvej at opgradere til en  <a href=\"https://developers.google.com/maps/premium/usage-limits\">Premium Plan</a>.",
+      "address_query_limit_html": "Du har overskredet brugsgrænse for Google API. Overvej at opgradere til en  <a href=\"https:\/\/developers.google.com\/maps\/premium\/usage-limits\">Premium Plan<\/a>.",
       "auth_error": "Der opstod et problem med at godkende din Google Maps API-nøgle."
     }
   },
@@ -326,7 +326,7 @@
       "link": "Åben ved brug af adgangskode",
       "label": "Åben ved brug af adgangskode:",
       "button": "Send",
-      "admin_link_html": "Ejer du denne butik? <a href=\"/admin\">Log ind her</a>"
+      "admin_link_html": "Ejer du denne butik? <a href=\"\/admin\">Log ind her<\/a>"
     },
     "signup": {
       "success": "Vi sender dig en email lige inden vi åbner!"
@@ -337,10 +337,10 @@
   },
   "store_availability": {
     "general": {
-      "pick_up_available_at_html": "Afhentning er tilgængelig for <strong>{{ location_name }}</strong>",
+      "pick_up_available_at_html": "Afhentning er tilgængelig for <strong>{{ location_name }}<\/strong>",
       "view_store_info": "Se butiksoplysninger",
       "check_other_stores": "Kontrollér tilgængelighed i andre butikker",
-      "pick_up_unavailable_at_html": "Afhentning er ikke tilgængelig for <strong>{{ location_name }}</strong> i øjeblikket",
+      "pick_up_unavailable_at_html": "Afhentning er ikke tilgængelig for <strong>{{ location_name }}<\/strong> i øjeblikket",
       "miles": "mi",
       "kilometers": "km",
       "pick_up_available": "Afhentning er tilgængeligt",
@@ -446,7 +446,7 @@
     "form": {
       "post_success": "Tak for din henvendelse. Vi vender tilbage hurtigst muligt",
       "post_error": "Fejl:",
-      "post_field_error_html": "<strong>{{ field }}</strong> {{ error }}",
+      "post_field_error_html": "<strong>{{ field }}<\/strong> {{ error }}",
       "name": "Navn",
       "email": "Email",
       "phone": "Telefonnummer",
