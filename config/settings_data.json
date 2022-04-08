@@ -178,7 +178,7 @@
           "promo_products_product_2": "",
           "cart_summary_image_show": true,
           "cart_summary_use_tint": true,
-          "cart_summary_image_url": "",
+          "cart_summary_image_url": "shopify:\/\/collections\/all",
           "cart_summary_image_heading": "Spend over $30 and get free shipping!",
           "cart_summary_image_subheading": "Read more"
         }
